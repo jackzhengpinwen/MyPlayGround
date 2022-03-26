@@ -1,4 +1,4 @@
-package com.zpw.myplayground.dagger.data
+package com.zpw.myplayground.data
 
 import javax.inject.Inject
 

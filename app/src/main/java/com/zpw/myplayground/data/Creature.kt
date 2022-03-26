@@ -1,4 +1,4 @@
-package com.zpw.myplayground.dagger.data
+package com.zpw.myplayground.data
 
 interface Creature {
     fun shout(): String

@@ -1,8 +1,8 @@
 package com.zpw.myplayground.dagger.module
 
-import com.zpw.myplayground.dagger.data.Cat
-import com.zpw.myplayground.dagger.data.Creature
-import com.zpw.myplayground.dagger.data.Dog
+import com.zpw.myplayground.data.Cat
+import com.zpw.myplayground.data.Creature
+import com.zpw.myplayground.data.Dog
 import dagger.Module
 import dagger.Provides
 

@@ -4,7 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import com.zpw.myplayground.dagger.component.DaggerCreatureComponent
-import com.zpw.myplayground.dagger.data.Creature
+import com.zpw.myplayground.data.Creature
 import com.zpw.myplayground.dagger.module.CreatureModule
 import javax.inject.Inject
 

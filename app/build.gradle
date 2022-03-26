@@ -47,5 +47,5 @@ dependencies {
     kapt 'com.google.dagger:dagger-compiler:2.41'
 
     //koin
-    implementation "io.insert-koin:koin-android:3.2"
+    implementation "io.insert-koin:koin-android:3.1.5"
 }
