@@ -10,7 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MyPlayGround">
         <activity
-            android:name=".koin.KoinActivity"
+            android:name=".robolectric.RobolectricActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -20,6 +20,7 @@
         </activity>
         <activity android:name=".koin.KoinActivityA"/>
         <activity android:name=".koin.KoinActivityB"/>
+        <activity android:name=".robolectric.RobolectricAActivity"/>
     </application>
 
 </manifest>
