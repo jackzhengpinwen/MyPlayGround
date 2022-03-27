@@ -11,49 +11,57 @@ import kotlinx.coroutines.*
 import kotlin.coroutines.CoroutineContext
 import kotlin.system.measureTimeMillis
 
-class CoroutineActivity : AppCompatActivity(), CoroutineScope by MainScope() {
-    private val TAG = CoroutineActivity::class.java.canonicalName
+open class CoroutineActivity : AppCompatActivity(), CoroutineScope by MainScope() {
+    companion object {
+        open val TAG = CoroutineActivity::class.java.canonicalName
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_coroutine)
         val textView = findViewById<TextView>(R.id.text_count_down)
-        val job = GlobalScope.launch(Dispatchers.Main) {
-            for(i in 10 downTo 1) {
-                textView.text = "count down $i ..."
-                Log.d(TAG, "count down $i ...")
-                delay(1000)
-            }
-            textView.text = "Done!"
-        }
+//        val job = GlobalScope.launch(Dispatchers.Main) {
+//            for(i in 10 downTo 1) {
+//                textView.text = "count down $i ..."
+//                Log.d(TAG, "count down $i ...")
+//                delay(1000)
+//            }
+//            textView.text = "Done!"
+//        }
 //        GlobalScope.launch(Dispatchers.Main) {
 //            delay(5000)
 //            job.cancel()
 //        }
-        launch(Dispatchers.Main) {
-            reasSomething()
-            job.cancel()
-            Log.d(TAG, "job is canceled")
-        }
+//        launch(Dispatchers.Main) {
+//            reasSomething()
+//            job.cancel()
+//            Log.d(TAG, "job is canceled")
+//        }
+//
+//        val text = async(Dispatchers.IO) {
+//            delay(3000)
+//            "result"
+//        }
+//        launch(Dispatchers.Main) {
+//            val result = text.await()
+//            Log.d(TAG, "result is $result")
+//        }
+//
+//        launch(Dispatchers.Main) {
+//            val time = measureTimeMillis {
+//                val one = async { doSomething1() }
+//                val two = async { doSomething2() }
+//                Log.d(TAG, "The answer is ${one.await() + two.await()}")
+//            }
+//            Log.d(TAG, "Completed in $time ms")
+//        }
+//
+//        someMethod()
+//        someMethod2()
 
-        val text = async(Dispatchers.IO) {
-            delay(3000)
-            "result"
-        }
-        launch(Dispatchers.Main) {
-            val result = text.await()
-            Log.d(TAG, "result is $result")
-        }
-
-        launch(Dispatchers.Main) {
-            val time = measureTimeMillis {
-                val one = async { doSomething1() }
-                val two = async { doSomething2() }
-                Log.d(TAG, "The answer is ${one.await() + two.await()}")
-            }
-            println("Completed in $time ms")
-        }
-
+//        flow1()
+//        flow2()
+        flowDemo()
         Log.d(TAG, "onCreate: end!!")
     }
 
