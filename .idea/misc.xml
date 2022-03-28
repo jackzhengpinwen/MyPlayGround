@@ -13,6 +13,7 @@
         <entry key="app/src/main/res/layout/activity_koin.xml" value="0.12239583333333333" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.12239583333333333" />
         <entry key="app/src/main/res/layout/activity_robolectric.xml" value="0.12239583333333333" />
+        <entry key="app/src/main/res/layout/activity_workmanager.xml" value="0.1" />
       </map>
     </option>
   </component>
