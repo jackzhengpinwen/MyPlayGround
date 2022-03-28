@@ -3,7 +3,10 @@ plugins {
     id 'kotlin-android'
     id 'kotlin-kapt'
     id "com.google.protobuf" version "0.8.17"
+    id 'jacoco'
 }
+
+apply from: "$project.rootDir/jacoco.gradle"
 
 android {
     compileSdk 31
