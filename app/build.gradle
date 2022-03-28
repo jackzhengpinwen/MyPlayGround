@@ -42,6 +42,10 @@ android {
     viewBinding {
         enabled = true
     }
+    packagingOptions {
+        pickFirst 'META-INF/AL2.0'
+        pickFirst 'META-INF/LGPL2.1'
+    }
 }
 
 dependencies {
@@ -104,8 +108,6 @@ dependencies {
     implementation('org.jacoco:org.jacoco.report:0.8.4') {
         exclude group: 'org.jacoco', module: 'org.jacoco.core'
     }
-
-
 }
 
 protobuf {
