@@ -16,7 +16,7 @@ import org.mockito.Mock
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-
+@RunWith(JUnit4::class)
 class LoginAPIServiceTest {
     @Mock
     lateinit var mockWebServer: MockWebServer
