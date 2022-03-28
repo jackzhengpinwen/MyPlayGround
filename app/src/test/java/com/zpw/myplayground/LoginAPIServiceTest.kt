@@ -18,9 +18,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 @RunWith(JUnit4::class)
 class LoginAPIServiceTest {
-    @Mock
     lateinit var mockWebServer: MockWebServer
-    @Mock
     lateinit var apiService: LoginAPIService
     lateinit var gson: Gson
 
