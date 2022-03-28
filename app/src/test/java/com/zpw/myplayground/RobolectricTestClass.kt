@@ -29,13 +29,11 @@ class RobolectricTestClass {
 
     @Test
     fun functionEin2() {
-        val scenario = ActivityScenario.launch(RobolectricActivity::class.java)
-        scenario.onActivity {
-            it.findViewById<TextView>(R.id.text_jump).performClick()
-            val intent = Intent(it, RobolectricAActivity::class.java)
-            val actual = shadowOf(it).nextStartedActivity
-            assertEquals(intent.component, actual.component)
-        }
+        val controller = Robolectric.buildActivity(RobolectricActivity::class.java).setup()
+        controller.get().findViewById<TextView>(R.id.text_jump).performClick()
+        val intent = Intent(controller.get(), RobolectricAActivity::class.java)
+        val actual = shadowOf(controller.get()).nextStartedActivity
+        assertEquals(intent.component, actual.component)
     }
 
     @Test
@@ -64,7 +62,7 @@ class RobolectricTestClass {
         assertEquals(controller.get().findViewById<TextView>(R.id.text_jump).text, "Android Device Version is beyond Marshmallow.")
     }
 
-    @Config(sdk = [Build.VERSION_CODES.JELLY_BEAN])
+    @Config(sdk = [Build.VERSION_CODES.LOLLIPOP])
     @Test
     fun functionEin6() {
         val controller = Robolectric.buildActivity(RobolectricActivity::class.java).setup()
