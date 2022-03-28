@@ -10,7 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MyPlayGround">
         <activity
-            android:name=".room.RoomActivity"
+            android:name=".datastore.DataStoreProtoActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
