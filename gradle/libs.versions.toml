@@ -1,0 +1,5 @@
+[versions]
+corektx = "1.7.0"
+
+[libraries]
+corektx = { module = "androidx.core:core-ktx", version.ref = "corektx" }
