@@ -114,6 +114,9 @@ dependencies {
 
     // jacoco
     implementation("org.jacoco:org.jacoco.report:0.8.4")
+
+    // circleimageview
+    implementation("de.hdodenhof:circleimageview:3.1.0")
 }
 
 
