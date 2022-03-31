@@ -8,6 +8,7 @@ plugins {
     kotlin("kapt")
     id("com.google.protobuf") version "0.8.18"
     id("jacoco")
+    id("com.zpw.myplugin") version "1.0.0-SNAPSHOT"
 }
 
 apply("../jacoco.gradle")

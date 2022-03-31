@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ASMIdeaPluginConfiguration">
     <asm skipDebug="false" skipFrames="false" skipCode="false" expandFrames="false" />
-    <groovy codeStyle="GROOVIFIER_0_2_0" />
+    <groovy codeStyle="LEGACY" />
   </component>
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
@@ -13,8 +13,11 @@
         <entry key="app/src/main/res/layout/activity_foregroundservice.xml" value="0.14221014492753623" />
         <entry key="app/src/main/res/layout/activity_koin.xml" value="0.12239583333333333" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.12239583333333333" />
+        <entry key="app/src/main/res/layout/activity_quadrant.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_robolectric.xml" value="0.12239583333333333" />
         <entry key="app/src/main/res/layout/activity_workmanager.xml" value="0.1" />
+        <entry key="library1/src/main/res/layout/activity_coroutine.xml" value="0.1609375" />
+        <entry key="library1/src/main/res/layout/activity_datastore_prefrence.xml" value="0.1609375" />
       </map>
     </option>
   </component>
