@@ -2,8 +2,15 @@
 <project version="4">
   <component name="CompilerConfiguration">
     <bytecodeTargetLevel target="11">
+      <module name="Circleimageview.circleimageview" target="11" />
+      <module name="CircleImageView.circleimageview" target="11" />
+      <module name="CircleImageView.sample" target="11" />
+      <module name="Circleimageview.sample" target="11" />
+      <module name="de.hdodenhof.CircleImageView.circleimageview" target="11" />
+      <module name="de.hdodenhof.CircleImageView.sample" target="11" />
       <module name="jdoctor.jdoctor-core" target="1.8" />
       <module name="jdoctor.jdoctor-utils" target="1.8" />
+      <module name="my-include-git-plugin" target="1.8" />
     </bytecodeTargetLevel>
   </component>
 </project>

@@ -1,0 +1,81 @@
+{
+  "formatVersion": "1.1",
+  "component": {
+    "group": "com.zpw.includegit",
+    "module": "my-include-git-plugin",
+    "version": "1.0.0-SNAPSHOT",
+    "attributes": {
+      "org.gradle.status": "integration"
+    }
+  },
+  "createdBy": {
+    "gradle": {
+      "version": "6.8",
+      "buildId": "6yoqahzf7nayhnhcumncgpvc2q"
+    }
+  },
+  "variants": [
+    {
+      "name": "apiElements",
+      "attributes": {
+        "org.gradle.category": "library",
+        "org.gradle.dependency.bundling": "external",
+        "org.gradle.jvm.version": 8,
+        "org.gradle.libraryelements": "jar",
+        "org.gradle.usage": "java-api",
+        "org.jetbrains.kotlin.localToProject": "public",
+        "org.jetbrains.kotlin.platform.type": "jvm"
+      },
+      "files": [
+        {
+          "name": "my-include-git-plugin-1.0.0-SNAPSHOT.jar",
+          "url": "my-include-git-plugin-1.0.0-SNAPSHOT.jar",
+          "size": 18989,
+          "sha512": "9e921d65d6d7e67df610f0d41d9df7e228f6129e4a4a7a14e27e03801d1b19fd4ee4fb0e872c1807a0271ab0544000c09280534fb5909e44eaee883fe4be9779",
+          "sha256": "b4358cded6749b152096eb1463cd4095c72360e47f60f3d30343fb0cbb925a9e",
+          "sha1": "85758f3849c6a9d0b6c916810c52867382de297b",
+          "md5": "61b29ac99a64e15bce32a9959a1e4f97"
+        }
+      ]
+    },
+    {
+      "name": "runtimeElements",
+      "attributes": {
+        "org.gradle.category": "library",
+        "org.gradle.dependency.bundling": "external",
+        "org.gradle.jvm.version": 8,
+        "org.gradle.libraryelements": "jar",
+        "org.gradle.usage": "java-runtime",
+        "org.jetbrains.kotlin.localToProject": "public",
+        "org.jetbrains.kotlin.platform.type": "jvm"
+      },
+      "dependencies": [
+        {
+          "group": "org.eclipse.jgit",
+          "module": "org.eclipse.jgit",
+          "version": {
+            "requires": "5.13.0.202109080827-r"
+          }
+        },
+        {
+          "group": "org.eclipse.jgit",
+          "module": "org.eclipse.jgit.ssh.jsch",
+          "version": {
+            "requires": "5.13.0.202109080827-r"
+          }
+        }
+      ],
+      "files": [
+        {
+          "name": "my-include-git-plugin-1.0.0-SNAPSHOT.jar",
+          "url": "my-include-git-plugin-1.0.0-SNAPSHOT.jar",
+          "size": 18989,
+          "sha512": "9e921d65d6d7e67df610f0d41d9df7e228f6129e4a4a7a14e27e03801d1b19fd4ee4fb0e872c1807a0271ab0544000c09280534fb5909e44eaee883fe4be9779",
+          "sha256": "b4358cded6749b152096eb1463cd4095c72360e47f60f3d30343fb0cbb925a9e",
+          "sha1": "85758f3849c6a9d0b6c916810c52867382de297b",
+          "md5": "61b29ac99a64e15bce32a9959a1e4f97"
+        }
+      ]
+    }
+  ]
+}

@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <de.hdodenhof.circleimageview.CircleImageViewChange
+    <de.hdodenhof.circleimageview.CircleImageView
         android:layout_width="96dp"
         android:layout_height="96dp"
         android:src="@drawable/ic_launcher_drawable"
