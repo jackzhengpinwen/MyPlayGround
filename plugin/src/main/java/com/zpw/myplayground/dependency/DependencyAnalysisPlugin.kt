@@ -2,6 +2,7 @@ package com.zpw.myplayground.dependency
 
 import com.android.build.gradle.AppExtension
 import com.android.build.gradle.LibraryExtension
+import com.android.build.gradle.api.BaseVariant
 import com.android.build.gradle.internal.crash.afterEvaluate
 import com.android.build.gradle.internal.tasks.BundleLibraryClassesJar
 import com.zpw.myplayground.log
@@ -37,7 +38,7 @@ class DependencyAnalysisPlugin: Plugin<Project> {
         afterEvaluate {
             logger.log("Application afterEvaluate is call")
             the<AppExtension>().applicationVariants.all {
-                val androidClassAnalyzer = AppClassAnalyzer(project, name)
+                val androidClassAnalyzer = AppClassAnalyzer(project, this)
                 project.analyzeAndroidDependencies(androidClassAnalyzer)
             }
         }
@@ -48,7 +49,7 @@ class DependencyAnalysisPlugin: Plugin<Project> {
         afterEvaluate {
             logger.log("Library afterEvaluate is call")
             the<LibraryExtension>().libraryVariants.all {
-                val androidClassAnalyzer = LibClassAnalyzer(project, name)
+                val androidClassAnalyzer = LibClassAnalyzer(project, this)
                 project.analyzeAndroidDependencies(androidClassAnalyzer)
             }
         }
@@ -122,10 +123,11 @@ class DependencyAnalysisPlugin: Plugin<Project> {
 
     private class AppClassAnalyzer(
         private val project: Project,
-        override val variantName: String
+        private val variant: BaseVariant
     ): AndroidClassAnalyzer<ClassAnalysisTask> {
 
-        override val variantNameCapitalized: String = variantName.capitalized()
+        override val variantName: String = variant.name
+        override val variantNameCapitalized: String = variantName.capitalize()
 
         override fun registerClassAnalysisTask(): TaskProvider<ClassListAnalysisTask> {
             // Known to exist in Kotlin 1.3.50.
@@ -140,6 +142,7 @@ class DependencyAnalysisPlugin: Plugin<Project> {
                 // 将所有产生的.class文件都保存起来作为输入目录
                 kotlinClasses.from(kotlinCompileTask.get().outputs.files)
                 javaClasses.from(javaCompileTask.get().outputs.files)
+                layouts(variant.sourceSets.flatMap { it.resDirectories })
 
                 output.set(project.layout.buildDirectory.file(getAllUsedClassesPath(variantName)))
             }
@@ -149,9 +152,10 @@ class DependencyAnalysisPlugin: Plugin<Project> {
 
     private class LibClassAnalyzer(
         private val project: Project,
-        override val variantName: String
+        private val variant: BaseVariant
     ) : AndroidClassAnalyzer<JarAnalysisTask> {
 
+        override val variantName: String = variant.name
         override val variantNameCapitalized: String = variantName.capitalize()
 
         override fun registerClassAnalysisTask(): TaskProvider<JarAnalysisTask> {
@@ -160,6 +164,7 @@ class DependencyAnalysisPlugin: Plugin<Project> {
 
             return project.tasks.register("analyzeClassUsage$variantNameCapitalized", JarAnalysisTask::class.java) {
                 jar.set(bundleTask.flatMap { it.output })
+                layouts(variant.sourceSets.flatMap { it.resDirectories })
                 output.set(project.layout.buildDirectory.file(getAllUsedClassesPath(variantName)))
             }
         }
