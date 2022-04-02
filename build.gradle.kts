@@ -12,6 +12,6 @@ buildscript {
     }
 }
 
-//task clean(type: Delete) {
-//    delete rootProject.buildDir
+//plugins {
+//    id("com.zpw.myplugin") version "1.0.0-SNAPSHOT"
 //}

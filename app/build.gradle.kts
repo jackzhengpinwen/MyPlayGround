@@ -7,11 +7,11 @@ plugins {
     kotlin("android")
     kotlin("kapt")
     id("com.google.protobuf") version "0.8.18"
-    id("jacoco")
+//    id("jacoco")
     id("com.zpw.myplugin") version "1.0.0-SNAPSHOT"
 }
 
-apply("../jacoco.gradle")
+//apply("../jacoco.gradle")
 apply("../version.gradle.kts")
 
 android {
@@ -120,8 +120,6 @@ dependencies {
     implementation("de.hdodenhof:circleimageview:3.1.0")
 }
 
-
-
 protobuf {
     protoc {
         artifact = "com.google.protobuf:protoc:3.10.0"
@@ -136,4 +134,8 @@ protobuf {
             }
         }
     }
+}
+
+afterEvaluate {
+    logger.log(org.gradle.api.logging.LogLevel.DEBUG, "zpw$$ app afterEvaluate")
 }

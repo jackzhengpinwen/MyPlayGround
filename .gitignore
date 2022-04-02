@@ -1,17 +1,30 @@
+# root project
 *.iml
 .gradle
 /local.properties
-/.idea/caches
-/.idea/libraries
-/.idea/modules.xml
-/.idea/workspace.xml
-/.idea/navEditor.xml
-/.idea/assetWizardSettings.xml
+.idea
 .DS_Store
 /build
 /captures
 .externalNativeBuild
 .cxx
 local.properties
+
+# app
+app/.gradle
+app/build
+
+# libraby1
+library1/.gradle
+library1/build
+
+# buildSrc
 buildSrc/build
 buildSrc/.gradle
+
+# plugin
+plugin/build
+plugin/.gradle
+
+# mycheckouts
+mycheckouts

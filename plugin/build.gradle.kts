@@ -3,8 +3,6 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 plugins {
     `java-gradle-plugin`
     `java-library`
-    kotlin("jvm") version "1.6.10"
-    groovy
     id("com.gradle.plugin-publish") version "0.16.0"
     `maven-publish`
     `kotlin-dsl`
@@ -32,8 +30,18 @@ compileKotlin.kotlinOptions {
 dependencies {
     implementation(gradleApi())
     implementation("com.android.tools.build:gradle:7.0.3")
-    implementation("org.jetbrains.kotlin:kotlin-stdlib:1.6.10")
+    implementation("org.ow2.asm:asm:9.0")
+    implementation("org.ow2.asm:asm-tree:9.0")
     implementation("com.squareup:kotlinpoet:1.11.0")
+    implementation("com.squareup.moshi:moshi:1.12.0")
+    implementation("com.squareup.moshi:moshi-kotlin:1.12.0")
+    implementation("org.jetbrains.kotlin:kotlin-reflect")
+    implementation("org.jetbrains.kotlinx:kotlinx-metadata-jvm:0.3.0")
+    implementation(platform("org.jetbrains.kotlin:kotlin-bom"))
+    implementation("com.github.ben-manes.caffeine:caffeine:3.0.4")
+    compileOnly("org.jetbrains.kotlin:kotlin-gradle-plugin:1.3.50") {
+        because("Auto-wiring into Kotlin projects")
+    }
     implementation("org.eclipse.jgit:org.eclipse.jgit:5.13.0.202109080827-r")
     implementation("org.eclipse.jgit:org.eclipse.jgit.ssh.jsch:5.13.0.202109080827-r")
 }
@@ -43,9 +51,13 @@ gradlePlugin {
 //        id = "com.zpw.includegit"
 //        implementationClass = "com.zpw.myplayground.MyIncludeGitPlugin"
 //    }
-    val quadrantPlugin by plugins.creating {
+//    val quadrantPlugin by plugins.creating {
+//        id = "com.zpw.myplugin"
+//        implementationClass = "com.zpw.myplayground.QuadrantPlugin"
+//    }
+    val dependencyPlugin by plugins.creating {
         id = "com.zpw.myplugin"
-        implementationClass = "com.zpw.myplayground.QuadrantPlugin"
+        implementationClass = "com.zpw.myplayground.dependency.DependencyAnalysisPlugin"
     }
 }
 
@@ -81,8 +93,11 @@ afterEvaluate {
 //            named("includeBuildPlugin") {
 //                displayName = "Gradle Include Git repositories plugin"
 //            }
-            named("quadrantPlugin") {
-                displayName = "Gradle quadrant plugin"
+//            named("quadrantPlugin") {
+//                displayName = "Gradle quadrant plugin"
+//            }
+            named("dependencyPlugin") {
+                displayName = "Gradle dependencyPlugin plugin"
             }
         }
         mavenCoordinates {
