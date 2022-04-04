@@ -58,7 +58,7 @@ android {
 }
 
 dependencies {
-
+    implementation(files("libs/sdk.jar"))
     implementation(libs.corektx)
     implementation(Deps.appCompat)
     implementation("androidx.activity:activity-ktx:1.4.0")
@@ -66,6 +66,8 @@ dependencies {
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.3.1")
     implementation("com.google.android.material:material:1.5.0")
     implementation("androidx.constraintlayout:constraintlayout:2.1.3")
+    implementation("androidx.lifecycle:lifecycle-livedata:2.3.1")
+    implementation("androidx.lifecycle:lifecycle-viewmodel:2.3.1")
 
     // test
     testImplementation("junit:junit:4.+")
