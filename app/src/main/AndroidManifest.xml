@@ -24,6 +24,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".coroutines.CoroutineActivity"/>
+        <activity android:name=".dagger.DaggerActivity"/>
+        <activity android:name=".unittest.LoginActivity"/>
+        <activity android:name=".workmanager.WorkmanagerActivity"/>
         <activity android:name=".koin.KoinActivityA"/>
         <activity android:name=".koin.KoinActivityB"/>
         <activity android:name=".robolectric.RobolectricAActivity"/>

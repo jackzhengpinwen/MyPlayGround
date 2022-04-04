@@ -25,6 +25,7 @@ enableFeaturePreview("VERSION_CATALOGS")
 rootProject.name = "MyPlayGround"
 include(":app")
 include(":library1")
+include(":library2")
 //include(":plugin")
 
 //plugins {
@@ -45,3 +46,4 @@ include(":library1")
 //        branch.set("master")
 //    }
 //}
+

@@ -36,14 +36,6 @@ internal data class Artifact(
     )
 }
 
-private fun ComponentIdentifier.asString(): String {
-    return when (this) {
-        is ProjectComponentIdentifier -> projectPath
-        is ModuleComponentIdentifier -> moduleIdentifier.toString()
-        else -> throw GradleException("Cannot identify ComponentIdentifier subtype. Was ${javaClass.simpleName}")
-    }
-}
-
 internal enum class ComponentType {
     /**
      * A 3rd-party dependency.
@@ -102,4 +94,25 @@ internal data class TransitiveDependency(
      * 这些是相关项目直接使用的此依赖项的类成员。他们已经泄漏到类路径中。
      */
     val usedTransitiveClasses: Set<String>
+)
+
+/**
+ * Represents a dependency ([identifier]) that is declared in the `dependencies {}` block of a build script. This
+ * dependency is unused and has zero or more transitive dependencies that _are_ used ([usedTransitiveDependencies]).
+ */
+internal data class UnusedDirectDependency(
+    /**
+     * In group:artifact form. E.g.,
+     * 1. "javax.inject:javax.inject"
+     * 2. ":my-project"
+     */
+    val identifier: String,
+    /**
+     * If this direct dependency has any transitive dependencies that are used, they will be in this set.
+     *
+     * In group:artifact form. E.g.,
+     * 1. "javax.inject:javax.inject"
+     * 2. ":my-project"
+     */
+    val usedTransitiveDependencies: MutableSet<String>
 )

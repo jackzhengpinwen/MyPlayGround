@@ -4,25 +4,36 @@ package com.zpw.myplayground.dependency
 
 import com.zpw.myplayground.dependency.internal.*
 import com.zpw.myplayground.log
+import kotlinx.html.*
+import kotlinx.html.dom.create
 import org.gradle.api.DefaultTask
+import org.gradle.api.artifacts.result.ResolvedDependencyResult
+import org.gradle.api.file.FileCollection
 import org.gradle.api.file.RegularFileProperty
 import org.gradle.api.model.ObjectFactory
+import org.gradle.api.provider.Property
 import org.gradle.api.tasks.*
-import org.gradle.workers.WorkerExecutor
+import java.io.File
 import javax.inject.Inject
+import javax.xml.parsers.DocumentBuilderFactory
 
 /**
  *  生成未使用的直接依赖项和使用的传递依赖项的报告。
  */
 open class DependencyMisuseTask @Inject constructor(
-    objects: ObjectFactory,
-    private val workerExecutor: WorkerExecutor
+    objects: ObjectFactory
 ) : DefaultTask() {
 
     init {
         group = "verification"
         description = "Produces a report of unused direct dependencies and used transitive dependencies"
     }
+
+    @get:Classpath
+    lateinit var artifactFiles: FileCollection
+
+    @get:Internal
+    val configurationName: Property<String> = objects.property(String::class.java)
 
     @PathSensitive(PathSensitivity.RELATIVE)
     @get:InputFile
@@ -38,20 +49,26 @@ open class DependencyMisuseTask @Inject constructor(
     @get:OutputFile
     val outputUsedTransitives: RegularFileProperty = objects.fileProperty()
 
+    @get:OutputFile
+    val outputHtml: RegularFileProperty = objects.fileProperty()
+
     @TaskAction
     fun action() {
         logger.log("DependencyMisuseTask action")
         // Input 依赖的和引用的文件汇总
         val declaredDependenciesFile = declaredDependencies.get().asFile
         val usedClassesFile = usedClasses.get().asFile
+        val root = project.configurations.getByName(configurationName.get()).incoming.resolutionResult.root
 
         // Output
         val outputUnusedDependenciesFile = outputUnusedDependencies.get().asFile
         val outputUsedTransitivesFile = outputUsedTransitives.get().asFile
+        val outputHtmlFile = outputHtml.get().asFile
 
         // Cleanup prior execution
         outputUnusedDependenciesFile.delete()
         outputUsedTransitivesFile.delete()
+        outputHtmlFile.delete()
 
         // 依赖的和引用的类实例
         val declaredLibraries = declaredDependenciesFile.readText().fromJsonList<Component>()
@@ -107,16 +124,110 @@ open class DependencyMisuseTask @Inject constructor(
                 }
             }
 
-        outputUnusedDependenciesFile.writeText(unusedLibs.joinToString("\n"))
-        logger.quiet("Unused dependencies report: ${outputUnusedDependenciesFile.path}")
-        logger.quiet("Unused dependencies:\n${unusedLibs.joinToString(separator = "\n- ", prefix = "- ")}\n")
+        val unusedDepsWithTransitives = unusedLibs.mapNotNull { unusedLib ->
+            root.dependencies.filterIsInstance<ResolvedDependencyResult>().find {
+                unusedLib == it.selected.id.asString()
+            }?.let {
+                relate(it, UnusedDirectDependency(unusedLib, mutableSetOf()), usedTransitives.toSet())
+            }
+        }.toSet()
 
-        // TODO known issues:
-        // 1. 应该排除 org.jetbrains.kotlin:kotlin-stdlib 吗？
-        // 2. 生成的代码可能使用及物（例如使用 vanilla dagger 和 org.jetbrains:annotations 的 dagger.android）。
-        // 3. 未使用的指示布局 XML 文件中引用的错误报告类（例如，androidx.constraintlayout:constraintlayout && androidx.constraintlayout.widget.ConstraintLayout）
+        val completelyUnusedDeps = unusedDepsWithTransitives
+            .filter { it.usedTransitiveDependencies.isEmpty() }
+            .map { it.identifier }
+            .toSortedSet()
+
+        outputUnusedDependenciesFile.writeText(unusedDepsWithTransitives.toJson())
         outputUsedTransitivesFile.writeText(usedTransitives.toJson())
-        logger.quiet("Used transitive dependencies report: ${outputUsedTransitivesFile.path}")
-        logger.quiet("Used transitive dependencies:\n${usedTransitives.toPrettyString()}")
+        writeHtmlReport(completelyUnusedDeps, unusedDepsWithTransitives, usedTransitives, outputHtmlFile)
     }
+}
+
+private fun relate(
+    resolvedDependency: ResolvedDependencyResult,
+    unusedDep: UnusedDirectDependency,
+    transitives: Set<TransitiveDependency>
+): UnusedDirectDependency {
+    resolvedDependency.selected.dependencies.filterIsInstance<ResolvedDependencyResult>().forEach {
+        val identifier = it.selected.id.asString()
+        if (transitives.map { it.identifier }.contains(identifier)) {
+            unusedDep.usedTransitiveDependencies.add(identifier)
+        }
+        relate(it, unusedDep, transitives)
+    }
+    return unusedDep
+}
+
+private fun writeHtmlReport(
+    completelyUnusedDeps: Set<String>,
+    unusedDepsWithTransitives: Set<UnusedDirectDependency>,
+    usedTransitives: MutableList<TransitiveDependency>,
+    outputHtmlFile: File
+) {
+    val document = DocumentBuilderFactory.newInstance().newDocumentBuilder().newDocument()
+    document.create.html {
+        head { title("Misused Dependencies Report") }
+        body {
+            h1 { +"Completely unused direct dependencies" }
+            table {
+                tr {
+                    td {}
+                    td { strong { +"Identifier" } }
+                }
+                completelyUnusedDeps.forEachIndexed { i, unusedDep ->
+                    tr {
+                        td { +"${i + 1}" }
+                        td { +unusedDep }
+                    }
+                }
+            }
+
+            h1 { +"Unused direct dependencies" }
+            table {
+                unusedDepsWithTransitives.forEachIndexed { i, unusedDep ->
+                    tr {
+                        // TODO is valign="bottom" supported?
+                        td { +"${i + 1}" }
+                        td {
+                            strong { +unusedDep.identifier }
+                            if (unusedDep.usedTransitiveDependencies.isNotEmpty()) {
+                                p {
+                                    em { +"Used transitives" }
+                                    ul {
+                                        unusedDep.usedTransitiveDependencies.forEach {
+                                            li { +it }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+            h1 { +"Used transitive dependencies" }
+            table {
+                tr {
+                    td {}
+                    td { strong { +"Identifier" } }
+                }
+                usedTransitives.forEachIndexed { i, trans ->
+                    tr {
+                        td { +"${i + 1}" }
+                        td {
+                            p { strong { +trans.identifier } }
+                            p {
+                                em { +"Used transitives" }
+                                ul {
+                                    trans.usedTransitiveClasses.forEach {
+                                        li { +it }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }.writeToFile(outputHtmlFile)
 }

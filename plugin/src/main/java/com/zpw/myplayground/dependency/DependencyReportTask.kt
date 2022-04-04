@@ -13,6 +13,7 @@ import org.gradle.api.artifacts.result.DependencyResult
 import org.gradle.api.artifacts.result.ResolutionResult
 import org.gradle.api.artifacts.result.ResolvedComponentResult
 import org.gradle.api.artifacts.result.ResolvedDependencyResult
+import org.gradle.api.file.FileCollection
 import org.gradle.api.file.RegularFileProperty
 import org.gradle.api.model.ObjectFactory
 import org.gradle.api.provider.Property
@@ -28,8 +29,7 @@ import javax.inject.Inject
  */
 @CacheableTask
 open class DependencyReportTask @Inject constructor(
-    objects: ObjectFactory,
-    private val workerExecutor: WorkerExecutor
+    objects: ObjectFactory
 ) : DefaultTask() {
 
     init {
@@ -37,12 +37,15 @@ open class DependencyReportTask @Inject constructor(
         description = "Produces a report of all direct and transitive dependencies"
     }
 
-    @get:Input
-    val variantName: Property<String> = objects.property(String::class.java)
+    @get:Classpath
+    lateinit var artifactFiles: FileCollection
 
     @PathSensitive(PathSensitivity.RELATIVE)
     @get:InputFile
     val allArtifacts: RegularFileProperty = objects.fileProperty()
+
+    @get:Input
+    val configurationName: Property<String> = objects.property(String::class.java)
 
     @get:OutputFile
     val output: RegularFileProperty = objects.fileProperty()
@@ -65,25 +68,22 @@ open class DependencyReportTask @Inject constructor(
 
         // Step 1. 更新所有工件列表：传递与否？
         // 运行时类路径只会给我直接依赖项
-        val result: ResolutionResult =
+        val dependencies: Set<DependencyResult> =
             // 获取到RuntimeClasspath的配置 ConfigurationContainer
-            project.configurations["${variantName.get()}RuntimeClasspath"]
+            project.configurations.getByName(configurationName.get())
             // 此配置的传入依赖项 ResolvableDependencies
             .incoming
             // 返回解析的依赖图，如果需要，执行解析。这将解析依赖关系图，但不会解析或下载文件。
             .resolutionResult
-
-        val root: ResolvedComponentResult = result.root
-        val dependencies: Set<DependencyResult> = root.dependencies
+            .root
+            .dependencies
 
         // 判断模块中直接引用的库列表
         val directArtifacts = traverseDependencies(dependencies)
 
         // 将模块中涉及间接引用的库列表进行标记
         allArtifacts.forEach { dep ->
-            dep.apply {
-                isTransitive = !directArtifacts.any { it.identifier == dep.identifier }
-            }
+            dep.isTransitive = !directArtifacts.any { it.identifier == dep.identifier }
         }
 
         // Step 2. 从每个 jar 中提取声明的类

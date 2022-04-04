@@ -28,6 +28,12 @@ interface ClassAnalysisTask: Task {
     val output: RegularFileProperty
 }
 
+// 此正则表达式匹配 Java FQCN。
+private val JAVA_FQCN_REGEX = "(\\p{javaJavaIdentifierStart}\\p{javaJavaIdentifierPart}*\\.)+\\p{javaJavaIdentifierStart}\\p{javaJavaIdentifierPart}*".toRegex()
+
+// ObjectFactory：用于创建各种模型对象的工厂
+// 通过使用 javax.inject.Inject 注释公共构造函数或属性 getter 方法，可以将工厂实例注入任务、插件或其他对象。
+// 它也可以通过 org.gradle.api.Project#getObjects() 获得。
 open class ClassListAnalysisTask @Inject constructor(
     private val objects: ObjectFactory,
     private val workerExecutor: WorkerExecutor
@@ -36,6 +42,11 @@ open class ClassListAnalysisTask @Inject constructor(
         group = "verification"
         description = "Produces a report of all classes referenced by a given jar"
     }
+
+    /**
+     * 通过对象工厂为field创建实例，提供外部配置
+     */
+
 
     @PathSensitive(PathSensitivity.RELATIVE)
     @get:InputFiles
@@ -49,6 +60,10 @@ open class ClassListAnalysisTask @Inject constructor(
     @get:InputFiles
     val layoutFiles: ConfigurableFileCollection = objects.fileCollection()
 
+    @PathSensitive(PathSensitivity.RELATIVE)
+    @get:InputFiles
+    val kaptJavaStubs: ConfigurableFileCollection = objects.fileCollection()
+
     @get:OutputFile
     override val output: RegularFileProperty = objects.fileProperty()
 
@@ -57,7 +72,7 @@ open class ClassListAnalysisTask @Inject constructor(
             layoutFiles.from(
                 objects.fileTree().from(file)
                     .matching {
-                        include { it.path.contains("layout") }
+                        include { it.path.contains("layout") }// 只过滤layout文件夹下的文件
                     }.files
             )
         }
@@ -70,20 +85,41 @@ open class ClassListAnalysisTask @Inject constructor(
 
         reportFile.delete()
 
-        // 汇总由Java和kotlin产生的所有class文件
+        // 汇总由 Javac 和 kotlinc 产生的所有class文件（有可能包含非.class文件）
         val inputClassFiles = javaClasses.asFileTree.plus(kotlinClasses.asFileTree)
             .filter {
                 it.isFile && it.name.endsWith(".class")
             }
             .files
 
-        // 在类名、字段、方法、注解中用到的类收集起来
-        workerExecutor.noIsolation().submit(ClassListAnalysisWorkAction::class.java) {
-            classes = inputClassFiles
-            layouts = layoutFiles.files
-            report = reportFile
+        javaClasses.asFileTree.forEach {
+            logger.log("javaClasses --> ${it.absolutePath}")
         }
+        kotlinClasses.asFileTree.forEach {
+            logger.log("kotlinClasses --> ${it.absolutePath}")
+        }
+        layoutFiles.files.forEach {
+            logger.log("layoutFiles --> ${it.absolutePath}")
+        }
+        kaptJavaStubs.files.forEach {
+            logger.log("kaptJavaStubs --> ${it.absolutePath}")
+        }
+        logger.log("report output is ${reportFile.absolutePath}")
 
+        // 在类名、字段、方法、注解中用到的类收集起来
+        workerExecutor
+            // 创建一个 WorkQueue 以提交工作以供异步执行而没有隔离
+            .noIsolation()
+            // 提交任务，传入参数
+            .submit(ClassListAnalysisWorkAction::class.java)
+            {
+                classes = inputClassFiles
+                layouts = layoutFiles.files
+                kaptJavaSource = kaptJavaStubs.files
+                report = reportFile
+            }
+
+        // 等待任务执行结束
         workerExecutor.await()
 
 //        logger.log("Report:\n ${reportFile.readText()}")
@@ -93,6 +129,7 @@ open class ClassListAnalysisTask @Inject constructor(
 interface ClassListAnalysisParameters : WorkParameters {
     var classes: Set<File>
     var layouts: Set<File>
+    var kaptJavaSource: Set<File>
     var report: File
 }
 
@@ -116,6 +153,13 @@ abstract class ClassListAnalysisWorkAction: WorkAction<ClassListAnalysisParamete
             nodeList.map { it.nodeName }.filter { it.contains(".") }
         }.fold(classNames) { set, item -> set.apply { add(item) } }
 
+        parameters.kaptJavaSource
+            .flatMap { it.readLines() }
+            .flatMap { JAVA_FQCN_REGEX.findAll(it).toList() }
+            .map { it.value }
+            .map { it.removeSuffix(".class") }
+            .fold(classNames) { set, item -> set.apply { add(item) } }
+
         parameters.report.writeText(classNames.joinToString(separator = "\n"))
     }
 }
@@ -134,13 +178,19 @@ open class JarAnalysisTask @Inject constructor(
         description = "Produces a report of all classes referenced by a given jar"
     }
 
-    @PathSensitive(PathSensitivity.RELATIVE)
-    @get:InputFile
+    @get:Classpath
     val jar: RegularFileProperty = objects.fileProperty()
 
     @PathSensitive(PathSensitivity.RELATIVE)
     @get:InputFiles
     val layoutFiles: ConfigurableFileCollection = objects.fileCollection()
+
+    /**
+     * Java 源文件。由 kotlin-kapt 插件生成的存根。
+     */
+    @PathSensitive(PathSensitivity.RELATIVE)
+    @get:InputFiles
+    val kaptJavaStubs: ConfigurableFileCollection = objects.fileCollection()
 
     @get:OutputFile
     override val output: RegularFileProperty = objects.fileProperty()
@@ -168,6 +218,7 @@ open class JarAnalysisTask @Inject constructor(
         workerExecutor.noIsolation().submit(JarAnalysisWorkAction::class.java) {
             jar = jarFile
             layouts = layoutFiles.files
+            kaptJavaSource = kaptJavaStubs.files
             report = reportFile
         }
         workerExecutor.await()
@@ -179,6 +230,7 @@ open class JarAnalysisTask @Inject constructor(
 interface JarAnalysisParameters : WorkParameters {
     var jar: File
     var layouts: Set<File>
+    var kaptJavaSource: Set<File>
     var report: File
 }
 
@@ -206,6 +258,13 @@ abstract class JarAnalysisWorkAction : WorkAction<JarAnalysisParameters> {
         }.flatMap { nodeList ->
             nodeList.map { it.nodeName }.filter { it.contains(".") }
         }.fold(classNames) { set, item -> set.apply { add(item) } }
+
+        parameters.kaptJavaSource
+            .flatMap { it.readLines() }
+            .flatMap { JAVA_FQCN_REGEX.findAll(it).toList() }
+            .map { it.value }
+            .map { it.removeSuffix(".class") }
+            .fold(classNames) { set, item -> set.apply { add(item) } }
 
         parameters.report.writeText(classNames.joinToString(separator = "\n"))
     }

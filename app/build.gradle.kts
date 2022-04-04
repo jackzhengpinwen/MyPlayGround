@@ -77,7 +77,7 @@ dependencies {
     testImplementation("org.mockito:mockito-core:2.28.2")
     androidTestImplementation("org.mockito:mockito-android:2.24.5")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.5.0")
-    implementation("androidx.arch.core:core-testing:2.0.1")
+    testImplementation("androidx.arch.core:core-testing:2.0.1")
     testImplementation("com.squareup.okhttp3:mockwebserver:4.9.0")
 
     // dagger
@@ -111,10 +111,10 @@ dependencies {
     implementation("androidx.work:work-runtime-ktx:2.7.1")
 
     // glide
-    implementation("com.github.bumptech.glide:glide:4.12.0")
+//    implementation("com.github.bumptech.glide:glide:4.12.0")
 
     // jacoco
-    implementation("org.jacoco:org.jacoco.report:0.8.4")
+//    implementation("org.jacoco:org.jacoco.report:0.8.4")
 
     // circleimageview
     implementation("de.hdodenhof:circleimageview:3.1.0")
