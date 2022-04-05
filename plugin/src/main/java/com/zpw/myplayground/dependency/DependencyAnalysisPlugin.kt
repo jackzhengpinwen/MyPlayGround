@@ -67,6 +67,7 @@ class DependencyAnalysisPlugin: Plugin<Project> {
         logger.log("analyzeAndroidLibraryDependencies")
         afterEvaluate {
             logger.log("AndroidLibrary afterEvaluate is call")
+//            project.analyzeLibDebug()
             the<LibraryExtension>().libraryVariants.all {
                 val androidClassAnalyzer = LibClassAnalyzer(project, this)
                 project.analyzeAndroidDependencies(androidClassAnalyzer)
@@ -328,6 +329,28 @@ class DependencyAnalysisPlugin: Plugin<Project> {
                 }
                 inFiles.from(assembleTask.get().inputs.files)
                 outFiles.from(assembleTask.get().outputs.files)
+            }
+    }
+
+    private fun Project.analyzeLibDebug() {
+        val libTask = project.tasks.named("kaptGenerateStubsDebugKotlin")
+        project.tasks
+            // 定义一个新任务，将在需要时创建和配置。
+            // 当使用诸如 TaskCollection#getByName(java.lang.String) 之类的查询方法定位任务时，
+            // 当任务被添加到任务图中以执行时，或者当 Provider#get () 在此方法的返回值上调用
+            .register("analyzeLibDebugTask", TestAssembleDebugTask::class.java)
+            // configurationAction 要运行以配置任务的操作。此操作在需要任务时运行
+            {
+                dependsOn(libTask)
+
+                libTask.get().inputs.files.forEach {
+                    logger.log("libTask input is ${it.absolutePath}")
+                }
+                libTask.get().outputs.files.forEach {
+                    logger.log("libTask output is ${it.absolutePath}")
+                }
+                inFiles.from(libTask.get().inputs.files)
+                outFiles.from(libTask.get().outputs.files)
             }
     }
 }

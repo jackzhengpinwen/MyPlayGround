@@ -14,8 +14,8 @@ val ClassNode.kotlinMetadata: KotlinClassMetadata?
         val header = with(metadata) {
             (get("bv") as List<Int>?)?.toIntArray()
             KotlinClassHeader(
-                kind = get("k") as Int?,
                 metadataVersion = (get("mv") as List<Int>?)?.toIntArray(),
+                kind = get("k") as Int?,
                 data1 = (get("d1") as List<String>?)?.toTypedArray(),
                 data2 = (get("d2") as List<String>?)?.toTypedArray(),
                 extraString = get("xs") as String?,

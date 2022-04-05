@@ -4,6 +4,7 @@ import com.autonomousapps.internal.asm.ClassReader
 import com.autonomousapps.internal.asm.Opcodes
 import com.autonomousapps.internal.asm.tree.ClassNode
 import com.zpw.myplayground.dependency.internal.*
+import com.zpw.myplayground.logger
 import kotlinx.metadata.jvm.*
 import java.io.InputStream
 import java.util.jar.JarFile
@@ -19,21 +20,37 @@ fun getBinaryAPI(classStreams: Sequence<InputStream>, visibilityFilter: (String)
     }}
 
     val visibilityMapNew = classNodes.readKotlinVisibilities().filterKeys(visibilityFilter)
+//    logger.log("visibilityMapNew is ${visibilityMapNew}")
 
     return classNodes
         .map { with(it) {
+//            logger.log("classNode is ${it.name}")
             val metadata = kotlinMetadata
             val mVisibility = visibilityMapNew[name]
             val classAccess = AccessFlags(effectiveAccess and Opcodes.ACC_STATIC.inv())
-
+//            logger.log("classAccess is ${classAccess}")
             val supertypes = listOf(superName) - "java/lang/Object" + interfaces.sorted()
-
-            val memberSignatures = (
-                    fields.map { with(it) { FieldBinarySignature(JvmFieldSignature(name, desc), isPublishedApi(), AccessFlags(access)) } } +
-                            methods.map { with(it) { MethodBinarySignature(JvmMethodSignature(name, desc), isPublishedApi(), AccessFlags(access)) } }
-                    ).filter {
+//            logger.log("supertypes is ${supertypes}")
+            val memberSignatures =
+                (
+                    fields.map {
+                        with(it)
+                        {
+                            FieldBinarySignature(JvmFieldSignature(name, desc), isPublishedApi(), AccessFlags(access))
+                        }
+                    }
+                    + methods.map
+                    {
+                        with(it)
+                        {
+                            MethodBinarySignature(JvmMethodSignature(name, desc), isPublishedApi(), AccessFlags(access))
+                        }
+                    }
+                )
+                .filter {
                     it.isEffectivelyPublic(classAccess, mVisibility)
                 }
+//            logger.log("memberSignatures is ${memberSignatures}")
 
             ClassBinarySignature(name, superName, outerClassName, supertypes, memberSignatures, classAccess,
                 isEffectivelyPublic(mVisibility), metadata.isFileOrMultipartFacade() || isDefaultImpls(metadata)

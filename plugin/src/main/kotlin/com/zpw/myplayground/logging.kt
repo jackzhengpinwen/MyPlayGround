@@ -4,7 +4,7 @@ import org.gradle.api.logging.Logger
 import org.gradle.api.logging.Logging
 
 object logger {
-  val openLog = false
+  val openLog = true
   fun log(msg: String, forceOpenLog: Boolean? = false) {
     if (openLog || forceOpenLog!!) {
       println("zpw$$ $msg")

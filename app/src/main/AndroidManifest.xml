@@ -16,7 +16,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MyPlayGround">
         <activity
-            android:name=".mvvm.MVVMActivity"
+            android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -32,6 +32,7 @@
         <activity android:name=".koin.KoinActivityA"/>
         <activity android:name=".koin.KoinActivityB"/>
         <activity android:name=".robolectric.RobolectricAActivity"/>
+        <activity android:name=".mvvm.MVVMActivity"/>
         <service android:name=".foregroundservice.SampleForegroundService"/>
     </application>
 

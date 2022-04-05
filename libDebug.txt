@@ -1,0 +1,258 @@
+> Task :library1:preBuild UP-TO-DATE
+input:
+output:
+
+> Task :library1:preDebugBuild UP-TO-DATE
+input:
+output:
+
+> Task :library1:compileDebugAidl NO-SOURCE
+input:
+sdk/platforms/android-31/framework.aidl
+transformed/core-1.7.0/aidl
+transformed/versionedparcelable-1.1.1/aidl
+
+output:
+build/intermediates/aidl_parcelable/debug/out
+build/generated/aidl_source_output_dir/debug/out
+
+> Task :library1:mergeDebugJniLibFolders UP-TO-DATE
+input:
+src/main/jniLibs
+src/debug/jniLibs
+
+output:
+build/intermediates/incremental/mergeDebugJniLibFolders
+build/intermediates/merged_jni_libs/debug/out
+
+> Task :library1:mergeDebugNativeLibs NO-SOURCE
+input:
+
+output:
+build/intermediates/merged_native_libs/debug/out
+
+> Task :library1:stripDebugDebugSymbols NO-SOURCE
+input:
+build/intermediates/merged_native_libs/debug/out
+
+output:
+build/intermediates/stripped_native_libs/debug/out
+
+> Task :library1:copyDebugJniLibsProjectAndLocalJars UP-TO-DATE
+input:
+output:
+
+> Task :library1:compileDebugRenderscript NO-SOURCE
+input:
+
+output:
+build/intermediates/renderscript_lib/debug/lib
+build/intermediates/rs/debug/obj
+build/generated/res/rs/debug
+build/generated/renderscript_source_output_dir/debug/out
+
+> Task :library1:generateDebugBuildConfig UP-TO-DATE
+input:
+
+output:
+build/generated/source/buildConfig/debug
+
+> Task :library1:generateDebugResValues UP-TO-DATE
+input:
+
+output:
+build/generated/res/resValues/debug
+
+> Task :library1:generateDebugResources UP-TO-DATE
+input:
+output:
+
+> Task :library1:packageDebugResources UP-TO-DATE
+input:
+src/main/res
+src/debug/res
+
+output:
+build/intermediates/data_binding_layout_info_type_package/debug/out
+build/generated/res/pngs/debug
+build/intermediates/incremental/packageDebugResources
+build/intermediates/packaged_res/debug
+build/intermediates/public_res/debug/public.txt
+
+> Task :library1:parseDebugLocalResources UP-TO-DATE
+input:
+build/intermediates/packaged_res/debug
+transformed/R.txt
+
+output:
+build/intermediates/local_only_symbol_list/debug/R-def.txt
+
+> Task :library1:processDebugManifest UP-TO-DATE
+input:
+src/main/AndroidManifest.xml
+
+output:
+build/intermediates/aapt_friendly_merged_manifests/debug/aapt
+build/intermediates/merged_manifest/debug/AndroidManifest.xml
+build/intermediates/manifest_merge_blame_file/debug/manifest-merger-blame-debug-report.txt
+build/intermediates/packaged_manifests/debug
+build/outputs/logs/manifest-merger-debug-report.txt
+
+> Task :library1:generateDebugRFile UP-TO-DATE
+input:
+.gradle/caches/transforms-3/6ea26397c685393d5c422173dd3d81b5/transformed缓存的各种r.ext
+build/intermediates/local_only_symbol_list/debug/R-def.txt
+build/intermediates/packaged_manifests/debug
+
+output:
+build/intermediates/compile_r_class_jar/debug/R.jar
+build/intermediates/symbol_list_with_package_name/debug/package-aware-r.txt
+build/intermediates/compile_symbol_list/debug/R.txt
+
+> Task :library1:compileDebugKotlin UP-TO-DATE
+input:
+build/intermediates/compile_r_class_jar/debug/R.jar
+.gradle/caches/transforms-3/7bcd8badc609448d29b333db5701e7f0/transformed各种jar文件
+sdk/platforms/android-31/android.jar
+sdk/build-tools/30.0.2/core-lambda-stubs.jar
+src/main/java
+build/generated/source/buildConfig/debug/com/zpw/myapplication/BuildConfig.java
+
+output:
+build/tmp/kotlin-classes/debug
+
+> Task :library1:extractDebugAnnotations UP-TO-DATE
+input:
+output:
+
+> Task :library1:javaPreCompileDebug UP-TO-DATE
+input:
+
+output:
+build/intermediates/annotation_processor_list/debug/annotationProcessors.json
+
+> Task :library1:compileDebugJavaWithJavac UP-TO-DATE
+input:
+build/intermediates/compile_r_class_jar/debug/R.jar
+.gradle/caches/transforms-3/7bcd8badc609448d29b333db5701e7f0/transformed各种jar文件
+build/tmp/kotlin-classes/debug
+build/generated/source/buildConfig/debug/com/zpw/myapplication/BuildConfig.java
+sdk/platforms/android-31/android.jar
+sdk/build-tools/30.0.2/core-lambda-stubs.jar
+build/intermediates/annotation_processor_list/debug/annotationProcessors.json
+
+output:
+build/intermediates/javac/debug/classes
+build/generated/ap_generated_sources/debug/out
+build/tmp/compileDebugJavaWithJavac/previous-compilation-data.bin
+
+> Task :library1:mergeDebugGeneratedProguardFiles UP-TO-DATE
+input:
+
+output:
+build/intermediates/generated_proguard_file/debug/proguard.txt
+
+> Task :library1:mergeDebugConsumerProguardFiles UP-TO-DATE
+input:
+build/intermediates/generated_proguard_file/debug/proguard.txt
+
+output:
+build/intermediates/merged_consumer_proguard_file/debug/proguard.txt
+
+> Task :library1:mergeDebugShaders UP-TO-DATE
+input:
+src/main/shaders
+src/debug/shaders
+
+output:
+build/intermediates/incremental/mergeDebugShaders
+build/intermediates/merged_shaders/debug/out
+
+> Task :library1:compileDebugShaders NO-SOURCE
+input:
+build/intermediates/merged_shaders/debug/out
+
+output:
+build/intermediates/shader_assets/debug/out
+
+> Task :library1:generateDebugAssets UP-TO-DATE
+input:
+output:
+
+> Task :library1:packageDebugAssets UP-TO-DATE
+input:
+build/intermediates/shader_assets/debug/out
+src/main/assets
+src/debug/assets
+
+output:
+build/intermediates/incremental/packageDebugAssets
+build/intermediates/library_assets/debug/out
+
+> Task :library1:packageDebugRenderscript NO-SOURCE
+input:
+
+output:
+build/intermediates/renderscript_headers/debug/out
+
+> Task :library1:prepareDebugArtProfile UP-TO-DATE
+input:
+
+output:
+build/intermediates/library_art_profile/debug/baseline-prof.txt
+
+> Task :library1:prepareLintJarForPublish UP-TO-DATE
+input:
+
+output:
+build/intermediates/lint_publish_jar/global/lint.jar
+
+> Task :library1:processDebugJavaRes NO-SOURCE
+input:
+
+output:
+build/intermediates/java_res/debug/out
+
+> Task :library1:mergeDebugJavaResource UP-TO-DATE
+input:
+build/tmp/kotlin-classes/debug/META-INF/library1_debug.kotlin_module
+
+output:
+build/intermediates/incremental/debug-mergeJavaRes/zip-cache
+build/intermediates/merged_java_res/debug/feature-library1.jar
+
+> Task :library1:syncDebugLibJars UP-TO-DATE
+input:
+build/intermediates/javac/debug/classes
+build/tmp/kotlin-classes/debug
+build/intermediates/merged_java_res/debug/feature-library1.jar
+build/intermediates/annotations_typedef_file/debug/typedefs.txt
+
+output:
+build/intermediates/aar_libs_directory/debug/libs
+build/intermediates/aar_main_jar/debug/classes.jar
+
+> Task :library1:writeDebugAarMetadata UP-TO-DATE
+input:
+
+output:
+build/intermediates/aar_metadata/debug/aar-metadata.properties
+
+> Task :library1:bundleDebugAar UP-TO-DATE
+input:
+build/intermediates/compile_symbol_list/debug/R.txt
+build/intermediates/merged_manifest/debug/AndroidManifest.xml
+build/intermediates/aar_main_jar/debug/classes.jar
+build/intermediates/packaged_res/debug/layout/activity_library.xml
+build/intermediates/aar_metadata/debug/aar-metadata.properties
+
+output:
+build/outputs/aar/library1-debug.aar
+
+> Task :library1:compileDebugSources UP-TO-DATE
+input:
+output:
+
+> Task :library1:assembleDebug UP-TO-DATE
+input:
+output:

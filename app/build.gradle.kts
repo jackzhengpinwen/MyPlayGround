@@ -73,6 +73,7 @@ dependencies {
     implementation("androidx.constraintlayout:constraintlayout:2.1.3")
     implementation("androidx.lifecycle:lifecycle-livedata:2.3.1")
     implementation("androidx.lifecycle:lifecycle-viewmodel:2.3.1")
+    implementation(project(mapOf("path" to ":library1")))
 
     // test
     testImplementation("junit:junit:4.+")
@@ -125,6 +126,7 @@ dependencies {
 
     // circleimageview
     implementation("de.hdodenhof:circleimageview:3.1.0")
+
 }
 
 protobuf {
