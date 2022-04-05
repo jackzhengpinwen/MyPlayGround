@@ -1,0 +1,438 @@
+> Task :app:preBuild
+input:
+output:
+
+> Task :app:preDebugBuild
+input:
+output:
+
+> Task :app:compileDebugAidl
+input:
+sdk/platforms/android-31/framework.aidl
+transformed/core-1.7.0/aidl
+transformed/versionedparcelable-1.1.1/aidl
+
+output:
+build/generated/aidl_source_output_dir/debug/out
+
+> Task :app:compileDebugRenderscript
+input:
+
+output:
+build/intermediates/renderscript_lib/debug/lib
+build/intermediates/rs/debug/obj
+build/generated/res/rs/debug
+build/generated/renderscript_source_output_dir/debug/out
+
+> Task :app:dataBindingMergeDependencyArtifactsDebug
+input:
+transformed/databinding-adapters-7.0.3/data-binding
+
+output:
+build/intermediates/data_binding_dependency_artifacts/debug
+
+> Task :app:dataBindingMergeGenClassesDebug UP-TO-DATE
+input:
+transformed/databinding-adapters-7.0.3/data-binding-base-class-log
+
+output:
+build/intermediates/data_binding_base_class_logs_dependency_artifacts/debug
+
+> Task :app:generateDebugResValues
+input:
+
+output:
+build/generated/res/resValues/debug
+
+> Task :app:generateDebugResources
+input:
+output:
+
+> Task :app:mergeDebugResources
+input:
+所有aar的res目录
+app/src/main/res
+app/src/debug/res
+
+output:
+build/intermediates/merged_res_blame_folder/debug/out
+build/intermediates/data_binding_layout_info_type_merge/debug/out
+build/generated/res/pngs/debug
+build/intermediates/incremental/mergeDebugResources
+build/intermediates/merged_res/debug
+
+> Task :app:dataBindingGenBaseClassesDebug
+input:
+build/intermediates/data_binding_layout_info_type_merge/debug/out
+build/intermediates/data_binding_base_class_logs_dependency_artifacts/debug
+build/intermediates/data_binding_dependency_artifacts/debug
+
+output:
+build/intermediates/data_binding_base_class_log_artifact/debug/out
+build/intermediates/incremental/dataBindingGenBaseClassesDebug
+build/generated/data_binding_base_class_source_out/debug/out
+
+> Task :app:dataBindingTriggerDebug
+input:
+
+output:
+build/generated/data_binding_trigger/debug
+
+> Task :app:generateDebugBuildConfig
+input:
+
+output:
+build/generated/source/buildConfig/debug
+
+> Task :app:extractDebugProto
+input:
+
+output:
+build/extracted-protos/debug
+
+> Task :app:extractIncludeDebugProto
+input:
+build/tmp/expandedArchives/protobuf-javalite-3.10.0.jar_a7859a6fe02959b65f07dc12037a17c3/google/protobuf/
+
+output:
+build/extracted-include-protos/debug
+
+> Task :app:extractProto
+input:
+
+output:
+build/extracted-protos/main
+
+> Task :app:generateDebugProto
+input:
+src/main/proto
+src/debug/proto
+build/extracted-include-protos/debug
+build/extracted-protos/main
+build/extracted-protos/debug
+src/main/proto/user_settings.proto
+
+output:
+build/generated/source/proto/debug
+
+> Task :app:checkDebugAarMetadata
+input:
+所有aar的/META-INF/com/android/build/gradle/aar-metadata.properties
+
+output:
+build/intermediates/aar_metadata_check/debug
+
+> Task :app:createDebugCompatibleScreenManifests
+input:
+
+output:
+build/intermediates/compatible_screen_manifest/debug
+
+> Task :app:extractDeepLinksDebug
+input:
+src/debug/res/navigation
+src/main/res/navigation
+
+output:
+build/intermediates/navigation_json/debug/navigation.json
+
+> Task :app:processDebugMainManifest
+input:
+src/main/AndroidManifest.xml
+所有aar的AndroidManifest.xml
+build/intermediates/navigation_json/debug/navigation.json
+
+output:
+build/intermediates/manifest_merge_blame_file/debug/manifest-merger-blame-debug-report.txt
+build/intermediates/merged_manifest/debug/AndroidManifest.xml
+build/outputs/logs/manifest-merger-debug-report.txt
+
+> Task :app:processDebugManifest
+input:
+build/intermediates/compatible_screen_manifest/debug
+build/intermediates/merged_manifest/debug/AndroidManifest.xml
+
+output:
+build/intermediates/merged_manifests/debug
+
+> Task :app:processDebugManifestForPackage
+input:
+build/intermediates/merged_manifests/debug
+
+output:
+build/intermediates/packaged_manifests/debug
+
+> Task :app:processDebugResources
+input:
+build/intermediates/aar_metadata_check/debug
+所有aar的包
+build/intermediates/merged_res/debug
+build/intermediates/packaged_manifests/debug
+build/intermediates/merged_manifests/debug
+sdk/platforms/android-31/android.jar
+
+output:
+build/intermediates/compile_and_runtime_not_namespaced_r_class_jar/debug/R.jar
+build/intermediates/incremental/processDebugResources
+build/intermediates/processed_res/debug/out
+build/intermediates/symbol_list_with_package_name/debug/package-aware-r.txt
+build/intermediates/runtime_symbol_list/debug/R.txt
+
+> Task :app:kaptGenerateStubsDebugKotlin
+input:
+build/intermediates/compile_and_runtime_not_namespaced_r_class_jar/debug/R.jar
+所有aar包的jar形式
+sdk/platforms/android-31/android.jar
+sdk/build-tools/30.0.2/core-lambda-stubs.jar
+所有kotlin的依赖包
+src/main/java
+
+output:
+build/tmp/kapt3/incrementalData/debug
+build/tmp/kapt3/stubs/debug
+
+> Task :app:kaptDebugKotlin
+input:
+transformed/output.bin
+所有kotlin的依赖包
+所有aar包的jar形式
+src/main/java
+build/generated/source/proto/debug
+build/generated/source/buildConfig
+build/generated/aidl_source_output_dir
+build/generated/data_binding_trigger
+build/generated/data_binding_base_class_source_out
+build/tmp/kapt3/stubs/debug
+build/intermediates/data_binding_base_class_log_artifact
+build/intermediates/data_binding_dependency_artifacts
+build/intermediates/data_binding_layout_info_type_merge
+
+output:
+build/intermediates/data_binding_artifact
+build/tmp/kapt3/classes/debug
+build/generated/source/kapt/debug
+build/generated/source/kaptKotlin/debug
+
+> Task :app:compileDebugKotlin
+input:
+build/intermediates/compile_and_runtime_not_namespaced_r_class_jar/debug/R.jar
+所有aar包的jar形式
+sdk/platforms/android-31/android.jar
+sdk/build-tools/30.0.2/core-lambda-stubs.jar
+src/main/java
+所有kotlin的依赖包
+build/generated/source/buildConfig/debug/com/zpw/myplayground/BuildConfig.java
+build/generated/aidl_source_output_dir
+build/generated/data_binding_trigger
+build/generated/data_binding_base_class_source_out
+build/generated/source/kapt
+build/generated/source/proto
+
+output:
+build/tmp/kotlin-classes/debug
+
+> Task :app:javaPreCompileDebug
+input:
+所有Java的依赖包
+
+output:
+build/intermediates/annotation_processor_list/debug/annotationProcessors.json
+
+> Task :app:compileDebugJavaWithJavac
+input:
+build/intermediates/compile_and_runtime_not_namespaced_r_class_jar/debug/R.jar
+所有aar包的jar形式
+build/tmp/kotlin-classes/debug
+build/tmp/kapt3/classes/debug
+src/main/java
+所有Java的依赖包
+sdk/platforms/android-31/android.jar
+sdk/build-tools/30.0.2/core-lambda-stubs.jar
+build/intermediates/annotation_processor_list/debug/annotationProcessors.json
+
+output:
+build/intermediates/javac/debug/classes
+build/generated/ap_generated_sources/debug/out
+build/tmp/compileDebugJavaWithJavac/previous-compilation-data.bin
+
+> Task :app:compileDebugSources
+input:
+output:
+
+> Task :app:mergeDebugNativeDebugMetadata
+input:
+
+output:
+build/outputs/native-debug-symbols/debug/native-debug-symbols.zip
+
+> Task :app:mergeDebugShaders
+input:
+src/main/shaders
+src/debug/shaders
+
+output:
+build/intermediates/incremental/mergeDebugShaders
+build/intermediates/merged_shaders/debug/out
+
+> Task :app:compileDebugShaders
+input:
+build/intermediates/merged_shaders/debug/out
+
+output:
+build/intermediates/shader_assets/debug/out
+
+> Task :app:generateDebugAssets
+input:
+output:
+
+> Task :app:mergeDebugAssets
+input:
+build/intermediates/shader_assets/debug/out
+src/main/assets
+src/debug/assets
+
+output:
+build/intermediates/incremental/mergeDebugAssets
+build/intermediates/merged_assets/debug/out
+
+> Task :app:compressDebugAssets
+input:
+build/intermediates/merged_assets/debug/out
+
+output:
+build/intermediates/compressed_assets/debug/out
+
+> Task :app:processDebugJavaRes
+input:
+
+output:
+build/intermediates/java_res/debug/out
+
+> Task :app:mergeDebugJavaResource
+input:
+所有Java的依赖包
+
+output:
+build/intermediates/incremental/debug-mergeJavaRes/zip-cache
+build/intermediates/merged_java_res/debug/base.jar
+
+> Task :app:checkDebugDuplicateClasses
+input:
+所有Java的依赖包
+
+output:
+build/intermediates/duplicate_classes_check/debug
+
+> Task :app:desugarDebugFileDependencies
+input:
+sdk/platforms/android-31/android.jar
+sdk/build-tools/30.0.2/core-lambda-stubs.jar
+所有Java的依赖包
+
+output:
+build/intermediates/external_file_lib_dex_archives/debug
+
+> Task :app:mergeExtDexDebug
+input:
+所有Java的依赖包
+build/intermediates/duplicate_classes_check/debug
+build/intermediates/external_file_lib_dex_archives/debug/0_jetified-sdk.jar
+
+output:
+build/intermediates/dex/debug/mergeExtDexDebug
+
+> Task :app:mergeLibDexDebug
+input:
+build/intermediates/duplicate_classes_check/debug
+
+output:
+build/intermediates/dex/debug/mergeLibDexDebug
+
+> Task :app:dexBuilderDebug
+input:
+build/intermediates/compile_and_runtime_not_namespaced_r_class_jar/debug/R.jar
+build/intermediates/javac/debug/classes
+build/tmp/kotlin-classes/debug
+build/tmp/kapt3/classes/debug
+sdk/platforms/android-31/android.jar
+所有Java的依赖包
+
+output:
+build/intermediates/external_libs_dex_archive_with_artifact_transforms/debug/out
+build/intermediates/external_libs_dex_archive/debug/out
+build/intermediates/mixed_scope_dex_archive/debug/out
+build/intermediates/project_dex_archive/debug/out
+build/intermediates/sub_project_dex_archive/debug/out
+
+> Task :app:mergeProjectDexDebug
+input:
+build/intermediates/project_dex_archive/debug/out
+build/intermediates/mixed_scope_dex_archive/debug/out
+build/intermediates/duplicate_classes_check/debug
+
+output:
+build/intermediates/dex/debug/mergeProjectDexDebug
+
+> Task :app:mergeDebugJniLibFolders
+input:
+src/main/jniLibs
+src/debug/jniLibs
+
+output:
+build/intermediates/incremental/mergeDebugJniLibFolders
+build/intermediates/merged_jni_libs/debug/out
+
+> Task :app:mergeDebugNativeLibs
+input:
+
+output:
+build/intermediates/merged_native_libs/debug/out
+
+> Task :app:stripDebugDebugSymbols
+input:
+build/intermediates/merged_native_libs/debug/out
+
+output:
+build/intermediates/stripped_native_libs/debug/out
+
+> Task :app:validateSigningDebug
+input:
+
+output:
+build/intermediates/validate_signing_config/debug
+
+> Task :app:writeDebugAppMetadata
+input:
+
+output:
+build/intermediates/app_metadata/debug/app-metadata.properties
+
+> Task :app:writeDebugSigningConfigVersions
+input:
+
+output:
+build/intermediates/signing_config_versions/debug/signing-config-versions.json
+
+> Task :app:packageDebug
+input:
+build/intermediates/app_metadata/debug/app-metadata.properties
+build/intermediates/compressed_assets/debug/out
+build/intermediates/dex/debug/mergeExtDexDebug
+build/intermediates/dex/debug/mergeProjectDexDebug
+build/intermediates/dex/debug/mergeLibDexDebug
+build/intermediates/merged_java_res/debug/base.jar
+build/intermediates/stripped_native_libs/debug/out
+build/intermediates/packaged_manifests/debug
+build/intermediates/processed_res/debug/out
+build/intermediates/signing_config_versions/debug/signing-config-versions.json
+build/intermediates/validate_signing_config/debug
+.android/debug.keystore
+
+output:
+build/outputs/apk/debug/output-metadata.json
+build/intermediates/incremental/packageDebug/tmp
+build/outputs/apk/debug
+
+> Task :app:assembleDebug
+input:
+output:

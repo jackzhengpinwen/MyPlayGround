@@ -6,6 +6,7 @@ import android.util.Log;
 import com.fwk.sdk.HvacCallback;
 import com.fwk.sdk.HvacInterface;
 
+
 public class HvacBinder extends HvacInterface.Stub {
 
     private static final String TAG = HvacBinder.class.getSimpleName();
@@ -21,12 +22,13 @@ public class HvacBinder extends HvacInterface.Stub {
     }
 
     @Override
-    public boolean registerCallback(HvacCallback callback) throws RemoteException {
+    public boolean registerCallback(HvacCallback hvacCallback) throws RemoteException {
         return false;
     }
 
     @Override
-    public boolean unregisterCallback(HvacCallback callback) throws RemoteException {
+    public boolean unregisterCallback(HvacCallback hvacCallback) throws RemoteException {
         return false;
     }
+
 }

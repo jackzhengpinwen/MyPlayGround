@@ -3,19 +3,17 @@ package com.zpw.myplayground.dependency
 import com.android.build.gradle.AppExtension
 import com.android.build.gradle.LibraryExtension
 import com.android.build.gradle.api.BaseVariant
-import com.android.build.gradle.internal.crash.afterEvaluate
 import com.android.build.gradle.internal.publishing.AndroidArtifacts
 import com.android.build.gradle.internal.tasks.BundleLibraryClassesJar
+import com.zpw.myplayground.dependency.collectAllTaskInfo.TestAssembleDebugTask
 import com.zpw.myplayground.log
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.api.UnknownTaskException
 import org.gradle.api.tasks.TaskProvider
-import org.gradle.api.attributes.Attribute
 import org.gradle.api.plugins.JavaPluginConvention
 import org.gradle.api.tasks.SourceSet
 import org.gradle.api.tasks.bundling.Jar
-import org.gradle.configurationcache.extensions.capitalized
 import org.gradle.kotlin.dsl.the
 import org.gradle.kotlin.dsl.get
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
@@ -51,6 +49,7 @@ class DependencyAnalysisPlugin: Plugin<Project> {
         // 我们需要 afterEvaluate，这样我们才能获得对 `KotlinCompile` 任务的引用。
         afterEvaluate {
             logger.log("Application afterEvaluate is call")
+//            project.analyzeAssembleDebug()
             // 返回指定类型的插件约定或扩展
             the<AppExtension>()
                 // 返回应用项目包含的构建变体的集合
@@ -308,6 +307,28 @@ class DependencyAnalysisPlugin: Plugin<Project> {
 
         // 这对于 com.android.application 项目是无操作的，因为它们没有有意义的 ABI
         fun registerAbiAnalysisTask(dependencyReportTask: TaskProvider<DependencyReportTask>) = Unit
+    }
+
+    private fun Project.analyzeAssembleDebug() {
+        val assembleTask = project.tasks.named("assembleDebug")
+        project.tasks
+            // 定义一个新任务，将在需要时创建和配置。
+            // 当使用诸如 TaskCollection#getByName(java.lang.String) 之类的查询方法定位任务时，
+            // 当任务被添加到任务图中以执行时，或者当 Provider#get () 在此方法的返回值上调用
+            .register("analyzeAssembleDebugTask", TestAssembleDebugTask::class.java)
+            // configurationAction 要运行以配置任务的操作。此操作在需要任务时运行
+            {
+                dependsOn(assembleTask)
+
+                assembleTask.get().inputs.files.forEach {
+                    logger.log("assembleTask input is ${it.absolutePath}")
+                }
+                assembleTask.get().outputs.files.forEach {
+                    logger.log("assembleTask output is ${it.absolutePath}")
+                }
+                inFiles.from(assembleTask.get().inputs.files)
+                outFiles.from(assembleTask.get().outputs.files)
+            }
     }
 }
 

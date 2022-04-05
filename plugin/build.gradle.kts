@@ -36,7 +36,7 @@ dependencies {
     implementation("com.squareup:kotlinpoet:1.11.0")
     implementation(platform("org.jetbrains.kotlin:kotlin-bom"))
     implementation("com.github.ben-manes.caffeine:caffeine:3.0.4")
-    implementation("org.jetbrains.kotlin:kotlin-reflect") {
+    implementation("org.jetbrains.kotlin:kotlin-reflect:1.6.10") {
         because("For Kotlin ABI analysis")
     }
     implementation("org.jetbrains.kotlinx:kotlinx-html-jvm:0.6.10") {
