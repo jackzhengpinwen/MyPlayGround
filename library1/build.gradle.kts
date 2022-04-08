@@ -1,7 +1,7 @@
 plugins {
     id("com.android.library")
     kotlin("android")
-    id("com.zpw.myplugin") version "1.0.0-SNAPSHOT"
+//    id("com.zpw.myplugin") version "1.0.0-SNAPSHOT"
 }
 
 android {
@@ -31,6 +31,13 @@ android {
         jvmTarget = "1.8"
     }
 }
+
+//configurations.all {
+//    resolutionStrategy {
+//        force("org.antlr:antlr4-runtime:4.8")
+//        force("org.antlr:antlr4-tool:4.8")
+//    }
+//}
 
 dependencies {
 

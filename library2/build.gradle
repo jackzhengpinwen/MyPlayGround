@@ -1,6 +1,6 @@
 plugins {
     id 'com.android.library'
-    id 'com.zpw.myplugin' version("1.0.0-SNAPSHOT")
+//    id 'com.zpw.myplugin' version("1.0.0-SNAPSHOT")
 }
 
 android {

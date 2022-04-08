@@ -12,6 +12,13 @@ buildscript {
     }
 }
 
-//plugins {
-//    id("com.zpw.myplugin") version "1.0.0-SNAPSHOT"
+//configurations.all {
+//    resolutionStrategy {
+//        force("org.antlr:antlr4-runtime:4.8")
+//        force("org.antlr:antlr4-tool:4.8")
+//    }
 //}
+
+plugins {
+    id("com.zpw.myplugin") version "1.0.0-SNAPSHOT"
+}

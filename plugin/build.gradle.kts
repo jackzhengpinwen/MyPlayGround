@@ -6,6 +6,8 @@ plugins {
     id("com.gradle.plugin-publish") version "0.16.0"
     `maven-publish`
     `kotlin-dsl`
+    antlr
+    id("com.bnorm.power.kotlin-power-assert") version "0.1.0"
 }
 
 group = "com.zpw.myplugin"
@@ -23,16 +25,27 @@ repositories {
     jcenter()
 }
 
-val compileKotlin: KotlinCompile by tasks
-compileKotlin.kotlinOptions {
-    jvmTarget = "1.8"
+tasks.withType<KotlinCompile>().configureEach {
+    kotlinOptions {
+        jvmTarget = "1.8"
+    }
 }
 
+//configurations.all {
+//    resolutionStrategy {
+//        force("org.antlr:antlr4-runtime:4.8")
+//        force("org.antlr:antlr4-tool:4.8")
+//    }
+//}
+
 val asmVersion = "9.2.0.1"
+val antlrVersion by extra("4.9.2")
+val internalAntlrVersion by extra("4.8.2")
 
 dependencies {
     implementation(gradleApi())
     implementation(files("libs/asm-$asmVersion.jar"))
+    implementation(files("libs/antlr-$internalAntlrVersion.jar"))
     implementation("com.squareup:kotlinpoet:1.11.0")
     implementation(platform("org.jetbrains.kotlin:kotlin-bom"))
     implementation("com.github.ben-manes.caffeine:caffeine:3.0.4")
@@ -51,6 +64,9 @@ dependencies {
     implementation("org.jetbrains.kotlinx:kotlinx-metadata-jvm:0.3.0") {
         because("For Kotlin ABI analysis")
     }
+    antlr("org.antlr:antlr4:4.9.1") {
+        because("For source parsing")
+    }
     compileOnly("org.jetbrains.kotlin:kotlin-gradle-plugin:1.6.10") {
         because("Auto-wiring into Kotlin projects")
     }
@@ -64,12 +80,37 @@ dependencies {
 tasks.jar {
     // Bundle shaded ASM jar into final artifact
     from(zipTree("libs/asm-$asmVersion.jar"))
+    from(zipTree("libs/antlr-$internalAntlrVersion.jar"))
 }
+
+// https://docs.gradle.org/current/userguide/antlr_plugin.html
+// https://discuss.gradle.org/t/using-gradle-2-10s-antlr-plugin-to-import-an-antlr-4-lexer-grammar-into-another-grammar/14970/6
+//val antlr = tasks.generateGrammarSource
+//antlr {
+//    /*
+//     * Ignore implied package structure for .g4 files and instead use this for all generated source.
+//     */
+//    val pkg = "com.zpw.myplayground.dependency.internal.grammar"
+//    val dir = pkg.replace(".", "/")
+//    outputDirectory = file("$buildDir/generated-src/antlr/main/$dir")
+//    arguments = arguments + listOf(
+//        // Specify the package declaration for generated Java source
+//        "-package", pkg,
+//        // Specify that generated Java source should go into the outputDirectory, regardless of package structure
+//        "-Xexact-output-dir",
+//        // Specify the location of "libs"; i.e., for grammars composed of multiple files
+//        "-lib", "src/main/antlr/$dir"
+//    )
+//}
+
+//tasks.compileKotlin {
+//    dependsOn(antlr)
+//}
 
 gradlePlugin {
 //    val includeBuildPlugin by plugins.creating {
 //        id = "com.zpw.includegit"
-//        implementationClass = "com.zpw.myplayground.MyIncludeGitPlugin"
+//        implementationClass = "com.zpw.myplayground.gitinclude.MyIncludeGitPlugin"
 //    }
 //    val quadrantPlugin by plugins.creating {
 //        id = "com.zpw.myplugin"

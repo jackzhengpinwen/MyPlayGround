@@ -8,7 +8,7 @@ plugins {
     kotlin("kapt")
     id("com.google.protobuf") version "0.8.18"
 //    id("jacoco")
-    id("com.zpw.myplugin") version "1.0.0-SNAPSHOT"
+//    id("com.zpw.myplugin") version "1.0.0-SNAPSHOT"
 }
 
 //apply("../jacoco.gradle")
@@ -62,8 +62,16 @@ android {
     }
 }
 
+//configurations.all {
+//    resolutionStrategy {
+//        force("org.antlr:antlr4-runtime:4.8")
+//        force("org.antlr:antlr4-tool:4.8")
+//    }
+//}
+
 dependencies {
     implementation(files("libs/sdk.jar"))
+//    implementation(project(mapOf("path" to ":library1")))
     implementation(libs.corektx)
     implementation(Deps.appCompat)
     implementation("androidx.activity:activity-ktx:1.4.0")
@@ -73,7 +81,6 @@ dependencies {
     implementation("androidx.constraintlayout:constraintlayout:2.1.3")
     implementation("androidx.lifecycle:lifecycle-livedata:2.3.1")
     implementation("androidx.lifecycle:lifecycle-viewmodel:2.3.1")
-    implementation(project(mapOf("path" to ":library1")))
 
     // test
     testImplementation("junit:junit:4.+")
