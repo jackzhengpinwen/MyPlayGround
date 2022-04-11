@@ -116,9 +116,13 @@ gradlePlugin {
 //        id = "com.zpw.myplugin"
 //        implementationClass = "com.zpw.myplayground.QuadrantPlugin"
 //    }
-    val dependencyPlugin by plugins.creating {
+//    val dependencyPlugin by plugins.creating {
+//        id = "com.zpw.myplugin"
+//        implementationClass = "com.zpw.myplayground.dependency.DependencyAnalysisPlugin"
+//    }
+    val condependencyPlugin by plugins.creating {
         id = "com.zpw.myplugin"
-        implementationClass = "com.zpw.myplayground.dependency.DependencyAnalysisPlugin"
+        implementationClass = "com.zpw.myplayground.condependencies.MyConDependencyPlugin"
     }
 }
 
@@ -157,8 +161,11 @@ afterEvaluate {
 //            named("quadrantPlugin") {
 //                displayName = "Gradle quadrant plugin"
 //            }
-            named("dependencyPlugin") {
-                displayName = "Gradle dependencyPlugin plugin"
+//            named("dependencyPlugin") {
+//                displayName = "Gradle dependencyPlugin plugin"
+//            }
+            named("condependencyPlugin") {
+                displayName = "Gradle condependencyPlugin plugin"
             }
         }
         mavenCoordinates {

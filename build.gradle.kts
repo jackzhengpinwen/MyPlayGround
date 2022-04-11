@@ -19,6 +19,6 @@ buildscript {
 //    }
 //}
 
-plugins {
-    id("com.zpw.myplugin") version "1.0.0-SNAPSHOT"
-}
+//plugins {
+//    id("com.zpw.myplugin") version "1.0.0-SNAPSHOT"
+//}

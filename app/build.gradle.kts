@@ -8,7 +8,7 @@ plugins {
     kotlin("kapt")
     id("com.google.protobuf") version "0.8.18"
 //    id("jacoco")
-//    id("com.zpw.myplugin") version "1.0.0-SNAPSHOT"
+    id("com.zpw.myplugin") version "1.0.0-SNAPSHOT"
 }
 
 //apply("../jacoco.gradle")
@@ -153,6 +153,13 @@ protobuf {
             }
         }
     }
+}
+
+myConDependency {
+    val dep = mutableMapOf<String, String>()
+    dep["glide"] = "4.12.0"
+//    dep["jacoco"] = "0.8.4"
+    conDependencies.set(dep)
 }
 
 afterEvaluate {
