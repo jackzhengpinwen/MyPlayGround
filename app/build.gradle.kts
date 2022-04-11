@@ -48,6 +48,9 @@ android {
             isReturnDefaultValues = true
         }
     }
+//    lint {
+//        isAbortOnError = false
+//    }
     buildFeatures {
         dataBinding = true
     }

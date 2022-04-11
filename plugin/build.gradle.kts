@@ -70,7 +70,7 @@ dependencies {
     compileOnly("org.jetbrains.kotlin:kotlin-gradle-plugin:1.6.10") {
         because("Auto-wiring into Kotlin projects")
     }
-    compileOnly("com.android.tools.build:gradle:7.0.3") {
+    compileOnly("com.android.tools.build:gradle:7.2.0-beta04") {
         because("Auto-wiring into Android projects")
     }
     implementation("org.eclipse.jgit:org.eclipse.jgit:5.13.0.202109080827-r")

@@ -1,0 +1,29 @@
+// benchmark.scenarios
+configuration {
+  tasks = ["help"]
+}
+
+noop {
+  tasks = [":app:assembleDebug"]
+}
+
+
+clean_build_with_cache {
+  tasks = ["clean", ":app:assembleDebug"]
+  gradle-args = ["--build-cache"]
+}
+
+clean_build_without_cache {
+  tasks = ["clean", ":app:assembleDebug"]
+  gradle-args = ["--no-build-cache"]
+}
+
+incremental_app {
+  tasks = [":app:assembleDebug"]
+  apply-abi-change-to = "plugin/src/main/java/com/zpw/myplayground/dependency/DependencyAnalysisPlugin.kt"
+}
+
+resource_change {
+  tasks = [":app:assembleDebug"]
+  apply-android-resource-change-to = "app/src/main/AndroidManifest.xml"
+}

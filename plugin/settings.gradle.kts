@@ -22,6 +22,19 @@ dependencyResolutionManagement {
     }
 }
 
+val VERSION: String by extra.properties
+
+gradleEnterprise {
+    buildScan {
+        publishAlways()
+        termsOfServiceUrl = "https://gradle.com/terms-of-service"
+        termsOfServiceAgree = "yes"
+
+//        tag(if (System.getenv("CI").isNullOrBlank()) "Local" else "CI")
+//        tag(VERSION)
+    }
+}
+
 rootProject.name = "my-plugin"
 
 include(":antlr")
