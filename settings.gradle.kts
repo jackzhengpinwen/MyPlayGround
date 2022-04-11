@@ -28,7 +28,7 @@ include(":library1")
 include(":library2")
 include(":library3")
 //include(":plugin")
-include(":lib")
+include(":plugintest")
 
 //plugins {
 //    id("me.champeau.includegit") version "0.1.5"
