@@ -6,9 +6,10 @@ plugins {
     id("com.android.application")
     kotlin("android")
     kotlin("kapt")
+    id("dagger.hilt.android.plugin")
     id("com.google.protobuf") version "0.8.18"
 //    id("jacoco")
-    id("com.zpw.myplugin") version "1.0.0-SNAPSHOT"
+//    id("com.zpw.myplugin") version "1.0.0-SNAPSHOT"
 }
 
 //apply("../jacoco.gradle")
@@ -65,12 +66,9 @@ android {
     }
 }
 
-//configurations.all {
-//    resolutionStrategy {
-//        force("org.antlr:antlr4-runtime:4.8")
-//        force("org.antlr:antlr4-tool:4.8")
-//    }
-//}
+kapt {
+    correctErrorTypes = true
+}
 
 dependencies {
     implementation(files("libs/sdk.jar"))
@@ -78,12 +76,15 @@ dependencies {
     implementation(libs.corektx)
     implementation(Deps.appCompat)
     implementation("androidx.activity:activity-ktx:1.4.0")
+    implementation("com.google.android.material:material:1.5.0")
     implementation("androidx.lifecycle:lifecycle-extensions:2.2.0")
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.3.1")
     implementation("com.google.android.material:material:1.5.0")
     implementation("androidx.constraintlayout:constraintlayout:2.1.3")
     implementation("androidx.lifecycle:lifecycle-livedata:2.3.1")
     implementation("androidx.lifecycle:lifecycle-viewmodel:2.3.1")
+    implementation("androidx.navigation:navigation-fragment-ktx:2.4.2")
+    implementation("androidx.navigation:navigation-ui-ktx:2.4.2")
 
     // test
     testImplementation("junit:junit:4.+")
@@ -137,6 +138,22 @@ dependencies {
     // circleimageview
     implementation("de.hdodenhof:circleimageview:3.1.0")
 
+    // hilt
+    implementation("com.google.dagger:hilt-android:2.41")
+    kapt("com.google.dagger:hilt-compiler:2.41")
+    implementation("androidx.hilt:hilt-work:1.0.0")
+    kapt("androidx.hilt:hilt-compiler:1.0.0")
+
+    // paging
+    implementation("androidx.paging:paging-runtime-ktx:3.1.1")
+
+    // navigation
+    implementation("androidx.navigation:navigation-fragment-ktx:2.4.2")
+    implementation("androidx.navigation:navigation-ui-ktx:2.4.2")
+
+    // startup
+    implementation("androidx.startup:startup-runtime:1.1.1")
+
 }
 
 protobuf {
@@ -155,12 +172,12 @@ protobuf {
     }
 }
 
-myConDependency {
-    val dep = mutableMapOf<String, String>()
-    dep["glide"] = "4.12.0"
-//    dep["jacoco"] = "0.8.4"
-    conDependencies.set(dep)
-}
+//myConDependency {
+//    val dep = mutableMapOf<String, String>()
+//    dep["glide"] = "4.12.0"
+////    dep["jacoco"] = "0.8.4"
+//    conDependencies.set(dep)
+//}
 
 afterEvaluate {
     logger.log(org.gradle.api.logging.LogLevel.DEBUG, "zpw$$ app afterEvaluate")

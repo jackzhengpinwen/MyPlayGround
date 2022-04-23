@@ -8,7 +8,7 @@ pluginManagement {
         google()
         mavenCentral()
     }
-    includeBuild("plugin")
+//    includeBuild("plugin")
 }
 
 dependencyResolutionManagement {
@@ -24,11 +24,11 @@ enableFeaturePreview("VERSION_CATALOGS")
 
 rootProject.name = "MyPlayGround"
 include(":app")
-include(":library1")
-include(":library2")
-include(":library3")
+//include(":library1")
+//include(":library2")
+//include(":library3")
 //include(":plugin")
-include(":plugintest")
+//include(":plugintest")
 
 //plugins {
 //    id("me.champeau.includegit") version "0.1.5"

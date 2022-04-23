@@ -6,6 +6,7 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE"/>
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
 
     <application
         android:name=".App"
@@ -14,9 +15,12 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.MyPlayGround">
+        android:theme="@style/Theme.MyPlayGround"
+        android:usesCleartextTraffic="true">
+
         <activity
-            android:name=".MainActivity"
+            android:name=".drawer.NavigationDrawerActivity"
+            android:theme="@style/Theme.MyPlayGround.NoActionBar"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -24,9 +28,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <activity android:name=".jni.JniActivity"/>
         <activity android:name=".coroutines.CoroutineActivity"/>
-        <activity android:name=".dagger.DaggerActivity"/>
         <activity android:name=".unittest.LoginActivity"/>
         <activity android:name=".workmanager.WorkmanagerActivity"/>
         <activity android:name=".koin.KoinActivityA"/>
@@ -34,6 +38,7 @@
         <activity android:name=".robolectric.RobolectricAActivity"/>
         <activity android:name=".mvvm.MVVMActivity"/>
         <service android:name=".foregroundservice.SampleForegroundService"/>
+
     </application>
 
 </manifest>

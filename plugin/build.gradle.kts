@@ -75,6 +75,9 @@ dependencies {
     }
     implementation("org.eclipse.jgit:org.eclipse.jgit:5.13.0.202109080827-r")
     implementation("org.eclipse.jgit:org.eclipse.jgit.ssh.jsch:5.13.0.202109080827-r")
+//    implementation("org.ow2.asm:asm:9.2")
+//    implementation("org.ow2.asm:asm-tree:9.2")
+    implementation("org.ow2.asm:asm-util:9.1")
 }
 
 tasks.jar {
@@ -120,9 +123,13 @@ gradlePlugin {
 //        id = "com.zpw.myplugin"
 //        implementationClass = "com.zpw.myplayground.dependency.DependencyAnalysisPlugin"
 //    }
-    val condependencyPlugin by plugins.creating {
+//    val condependencyPlugin by plugins.creating {
+//        id = "com.zpw.myplugin"
+//        implementationClass = "com.zpw.myplayground.condependencies.MyConDependencyPlugin"
+//    }
+    val transformPlugin by plugins.creating {
         id = "com.zpw.myplugin"
-        implementationClass = "com.zpw.myplayground.condependencies.MyConDependencyPlugin"
+        implementationClass = "com.zpw.myplayground.transform.MyTransformPlugin"
     }
 }
 
@@ -164,7 +171,10 @@ afterEvaluate {
 //            named("dependencyPlugin") {
 //                displayName = "Gradle dependencyPlugin plugin"
 //            }
-            named("condependencyPlugin") {
+//            named("condependencyPlugin") {
+//                displayName = "Gradle condependencyPlugin plugin"
+//            }
+            named("transformPlugin") {
                 displayName = "Gradle condependencyPlugin plugin"
             }
         }

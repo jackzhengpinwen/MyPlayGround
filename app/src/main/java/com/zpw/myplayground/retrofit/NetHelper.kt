@@ -43,7 +43,7 @@ object NetHelper {
         val logging = HttpLoggingInterceptor {
             Timber.tag("OkHttp").d(it)
         }
-        logging.setLevel(HttpLoggingInterceptor.Level.BASIC)
+        logging.setLevel(HttpLoggingInterceptor.Level.BODY)
 
         val client = OkHttpClient.Builder()
             .addInterceptor(logging)

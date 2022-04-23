@@ -6,52 +6,21 @@ public class ExampleUnitTest {
 
     @Test
     public void test() {
-        int[] nums = {1, 3, 5};
-        NumArray numArray = new NumArray(nums);
-        for (int num : numArray.tree) {
-            System.out.println("num is " + num);
-        }
+        String s = "bbbcccdddaaa";
+        int[] widths = new int[] {4,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10};
+        int[] ans = numberOfLines(widths, s);
+        System.out.println(ans[0]);
+        System.out.println(ans[1]);
     }
 
-    class NumArray {
-        int[] tree;
-        int[] nums;
-
-        public NumArray(int[] nums) {
-            this.tree = new int[nums.length + 1];
-            this.nums = nums;
-            for (int i = 0; i < nums.length; i++) {
-                add(i + 1, nums[i]);
-            }
+    public int[] numberOfLines(int[] widths, String s) {
+        int count = 0;
+        for(int i = 0; i < s.length(); i++) {
+            count += widths[s.charAt(i) - 'a'];
+            System.out.println(count);
         }
-
-        public void update(int index, int val) {
-            add(index + 1, val - nums[index]);
-            nums[index] = val;
-        }
-
-        public int sumRange(int left, int right) {
-            return prefixSum(right + 1) - prefixSum(left);
-        }
-
-        private int lowBit(int x) {
-            return x & -x;
-        }
-
-        private void add(int index, int val) {
-            while (index < tree.length) {
-                tree[index] += val;
-                index += lowBit(index);
-            }
-        }
-
-        private int prefixSum(int index) {
-            int sum = 0;
-            while (index > 0) {
-                sum += tree[index];
-                index -= lowBit(index);
-            }
-            return sum;
-        }
+        int op = count % 100;
+        int row = count / 100 + (op > 0 ? 1 : 0);
+        return new int[] {row, op};
     }
 }
