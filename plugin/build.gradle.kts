@@ -31,12 +31,6 @@ tasks.withType<KotlinCompile>().configureEach {
     }
 }
 
-//configurations.all {
-//    resolutionStrategy {
-//        force("org.antlr:antlr4-runtime:4.8")
-//        force("org.antlr:antlr4-tool:4.8")
-//    }
-//}
 
 val asmVersion = "9.2.0.1"
 val antlrVersion by extra("4.9.2")
@@ -78,6 +72,8 @@ dependencies {
 //    implementation("org.ow2.asm:asm:9.2")
 //    implementation("org.ow2.asm:asm-tree:9.2")
     implementation("org.ow2.asm:asm-util:9.1")
+
+    implementation("com.google.code.gson:gson:2.9.0")
 }
 
 tasks.jar {
@@ -127,9 +123,13 @@ gradlePlugin {
 //        id = "com.zpw.myplugin"
 //        implementationClass = "com.zpw.myplayground.condependencies.MyConDependencyPlugin"
 //    }
-    val transformPlugin by plugins.creating {
+//    val transformPlugin by plugins.creating {
+//        id = "com.zpw.myplugin"
+//        implementationClass = "com.zpw.myplayground.transform.MyTransformPlugin"
+//    }
+    val dependencyGraphPlugin by plugins.creating {
         id = "com.zpw.myplugin"
-        implementationClass = "com.zpw.myplayground.transform.MyTransformPlugin"
+        implementationClass = "com.zpw.myplayground.dependencygraph.DependencyGraphGeneratorPlugin"
     }
 }
 
@@ -174,8 +174,11 @@ afterEvaluate {
 //            named("condependencyPlugin") {
 //                displayName = "Gradle condependencyPlugin plugin"
 //            }
-            named("transformPlugin") {
-                displayName = "Gradle condependencyPlugin plugin"
+//            named("transformPlugin") {
+//                displayName = "Gradle condependencyPlugin plugin"
+//            }
+            named("dependencyGraphPlugin") {
+                displayName = "Gradle dependencyGraphPlugin plugin"
             }
         }
         mavenCoordinates {

@@ -48,7 +48,7 @@ class DependencyAnalysisPlugin: Plugin<Project> {
             .withPlugin(ANDROID_APP_PLUGIN)
             {
                 logger.log("Adding Android tasks to ${project.name}")
-//                project.configureAndroidAppProject()
+                project.configureAndroidAppProject()
             }
         pluginManager.withPlugin(ANDROID_LIBRARY_PLUGIN) {
             logger.log("Adding Android tasks to ${project.name}")

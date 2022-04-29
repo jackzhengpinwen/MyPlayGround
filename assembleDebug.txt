@@ -172,7 +172,11 @@ build/intermediates/merged_manifests/debug
 sdk/platforms/android-31/android.jar
 
 output:
-build/intermediates/compile_and_runtime_not_namespaced_r_class_jar/debug/R.jar
+build/intermediates/
+
+
+
+_and_runtime_not_namespaced_r_class_jar/debug/R.jar
 build/intermediates/incremental/processDebugResources
 build/intermediates/processed_res/debug/out
 build/intermediates/symbol_list_with_package_name/debug/package-aware-r.txt

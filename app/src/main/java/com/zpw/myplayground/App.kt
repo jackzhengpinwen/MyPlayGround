@@ -1,6 +1,7 @@
 package com.zpw.myplayground
 
 import android.app.Application
+import com.zpw.myapplication.Library1Utils
 import dagger.hilt.android.HiltAndroidApp
 import timber.log.Timber
 
@@ -13,5 +14,7 @@ class App: Application() {
         if (BuildConfig.DEBUG) {
             Timber.plant(Timber.DebugTree())
         }
+        Library1Utils.whoAmI()
+//        Library2Utils.whoAmICompat()
     }
 }

@@ -8,7 +8,7 @@ pluginManagement {
         google()
         mavenCentral()
     }
-//    includeBuild("plugin")
+    includeBuild("plugin")
 }
 
 dependencyResolutionManagement {
@@ -24,8 +24,9 @@ enableFeaturePreview("VERSION_CATALOGS")
 
 rootProject.name = "MyPlayGround"
 include(":app")
-//include(":library1")
-//include(":library2")
+//include(":dependency-analysis-android-gradle-plugin")
+include(":library1")
+include(":library2")
 //include(":library3")
 //include(":plugin")
 //include(":plugintest")

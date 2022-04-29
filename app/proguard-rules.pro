@@ -19,3 +19,11 @@
 # If you keep the line number information, uncomment this to
 # hide the original source file name.
 #-renamesourcefileattribute SourceFile
+
+-printconfiguration build/outputs/proguard.cfg
+
+-printseeds build/outputs/mapping/seeds.txt
+
+-printusage build/outputs/mapping/usage.txt
+
+-printmapping build/outputs/mapping/mapping.txt

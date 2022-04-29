@@ -30,7 +30,6 @@ class NavigationDrawerActivity : AppCompatActivity() {
         setContentView(R.layout.activity_navigation_drawer)
 
         setSupportActionBar(toolbar)
-        Navigation.
         val navView = findViewById<NavigationView>(R.id.nav_view)
         val drawerLayout = findViewById<DrawerLayout>(R.id.drawer_layout)
         val navController = findNavController(R.id.nav_host_fragment_content_main)

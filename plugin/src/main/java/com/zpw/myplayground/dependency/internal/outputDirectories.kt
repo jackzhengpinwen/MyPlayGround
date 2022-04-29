@@ -4,6 +4,8 @@ const val ROOT_DIR = "reports/dependency-analysis"
 
 fun getVariantDirectory(variantName: String) = "$ROOT_DIR/$variantName"
 
+fun getDepGraphPath(variantName: String) = "${getVariantDirectory(variantName)}/dep-graph.json"
+
 fun getArtifactsPath(variantName: String) = "${getVariantDirectory(variantName)}/artifacts.json"
 
 fun getArtifactsPrettyPath(variantName: String) = "${getVariantDirectory(variantName)}/artifacts-pretty.json"

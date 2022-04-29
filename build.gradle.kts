@@ -1,3 +1,5 @@
+import org.gradle.internal.impldep.org.eclipse.jgit.lib.ObjectChecker.tree
+
 buildscript {
     repositories {
         mavenLocal()
@@ -13,6 +15,6 @@ buildscript {
     }
 }
 
-//plugins {
-//    id("com.zpw.myplugin") version "1.0.0-SNAPSHOT"
-//}
+plugins {
+    id("com.zpw.myplugin") version "1.0.0-SNAPSHOT"
+}

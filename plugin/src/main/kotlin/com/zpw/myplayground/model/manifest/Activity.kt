@@ -13,7 +13,7 @@ import javax.xml.bind.annotation.XmlRootElement
 @XmlRootElement(name = ACTIVITY_TAG)
 @XmlAccessorType(FIELD)
 data class Activity(
-    @field:XmlAttribute(name = ACTIVITY_NAME_ATTRIBUTE, namespace = ANDROID_NAMESPACE)
+    @field:XmlElement(name = ACTIVITY_NAME_ATTRIBUTE, namespace = ANDROID_NAMESPACE)
     val className: String,
     @field:XmlElement(name = METADATA_TAG)
     val metaDataList: MutableList<MetaData>

@@ -1,6 +1,8 @@
 plugins {
     id("com.android.library")
     kotlin("android")
+    `maven-publish`
+//    `kotlin-dsl`
 //    id("com.zpw.myplugin") version "1.0.0-SNAPSHOT"
 }
 
@@ -12,11 +14,12 @@ android {
         targetSdk = 31
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        consumerProguardFiles("consumer-rules.pro")
     }
 
     buildTypes {
         getByName("release") {
-            isMinifyEnabled = false
+            isMinifyEnabled = true
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
@@ -32,18 +35,10 @@ android {
     }
 }
 
-//configurations.all {
-//    resolutionStrategy {
-//        force("org.antlr:antlr4-runtime:4.8")
-//        force("org.antlr:antlr4-tool:4.8")
-//    }
-//}
-
 dependencies {
-
-//    implementation 'androidx.core:core-ktx:1.7.0'
     api("androidx.appcompat:appcompat:1.4.1")
-    implementation("androidx.constraintlayout:constraintlayout:2.1.3")
+    implementation("androidx.constraintlayout:constraintlayout:2.1.0")
+    implementation("com.zpw.library2:library2:1.0")
 }
 
 // Log timings per task.
@@ -69,3 +64,32 @@ class TimingsListener: TaskExecutionListener, BuildListener {
 }
 
 //gradle.addListener(TimingsListener())
+
+publishing {
+    publications {
+        register<MavenPublication>("release") {
+            groupId = "com.zpw.library1"
+            artifactId = "library1"
+            version = "1.0"
+
+            afterEvaluate {
+                from(components["release"])
+            }
+        }
+    }
+}
+
+//tasks.withType<GenerateMavenPom>().configureEach {
+//    destination = layout.buildDirectory.file("poms/pom.xml").get().asFile
+//}
+
+//androidComponents {
+//    onVariants { variant->
+//        afterEvaluate {
+//            project.tasks.named("bundle${variant.name.capitalize()}Aar").configure {
+//                val t = this as com.android.build.gradle.tasks.BundleAar
+//                t.from(layout.buildDirectory.file("poms/pom.xml").get().asFile)
+//            }
+//        }
+//    }
+//}

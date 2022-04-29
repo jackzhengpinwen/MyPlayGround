@@ -26,15 +26,37 @@ android {
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        manifestPlaceholders["customKey"] = "customValue"
+    }
+
+    signingConfigs {
+        create("release") {
+            keyAlias = "release"
+            keyPassword = ""
+            storeFile = file("../config/release-keystore.jks")
+            storePassword = ""
+        }
     }
 
     buildTypes {
-        getByName("release") {
-            isMinifyEnabled = false
+        getByName("debug") {
+            isDebuggable = true
+            isMinifyEnabled = true
+            isShrinkResources = true
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
+        }
+        getByName("release") {
+            isDebuggable = false
+            isMinifyEnabled = true
+            isShrinkResources = true
+            proguardFiles(
+                getDefaultProguardFile("proguard-android-optimize.txt"),
+                "proguard-rules.pro"
+            )
+            signingConfig = signingConfigs.getByName("release")
         }
     }
     compileOptions {
@@ -49,9 +71,9 @@ android {
             isReturnDefaultValues = true
         }
     }
-//    lint {
-//        isAbortOnError = false
-//    }
+    lint {
+        abortOnError = false
+    }
     buildFeatures {
         dataBinding = true
     }
@@ -83,8 +105,6 @@ dependencies {
     implementation("androidx.constraintlayout:constraintlayout:2.1.3")
     implementation("androidx.lifecycle:lifecycle-livedata:2.3.1")
     implementation("androidx.lifecycle:lifecycle-viewmodel:2.3.1")
-    implementation("androidx.navigation:navigation-fragment-ktx:2.4.2")
-    implementation("androidx.navigation:navigation-ui-ktx:2.4.2")
 
     // test
     testImplementation("junit:junit:4.+")
@@ -154,6 +174,12 @@ dependencies {
     // startup
     implementation("androidx.startup:startup-runtime:1.1.1")
 
+    compileOnly("com.android.tools.build:gradle:7.2.0-beta04") {
+        because("It was test!!!")
+    }
+
+    implementation("com.zpw.library1:library1:1.0")
+    implementation("com.zpw.library2:library2:4.0")
 }
 
 protobuf {
@@ -171,13 +197,6 @@ protobuf {
         }
     }
 }
-
-//myConDependency {
-//    val dep = mutableMapOf<String, String>()
-//    dep["glide"] = "4.12.0"
-////    dep["jacoco"] = "0.8.4"
-//    conDependencies.set(dep)
-//}
 
 afterEvaluate {
     logger.log(org.gradle.api.logging.LogLevel.DEBUG, "zpw$$ app afterEvaluate")
