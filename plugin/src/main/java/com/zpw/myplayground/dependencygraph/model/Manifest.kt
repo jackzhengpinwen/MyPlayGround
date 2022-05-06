@@ -32,20 +32,20 @@ class Application {
 
 class Activity {
     var name: String = ""
-    var expoeted: Boolean = false
+    var expoeted: String = ""
 }
 
 class Service {
     var name: String = ""
-    var expoeted: Boolean = false
+    var expoeted: String = ""
 }
 
 class Provider {
     var name: String = ""
-    var expoeted: Boolean = false
+    var expoeted: String = ""
 }
 
 class Receiver {
     var name: String = ""
-    var expoeted: Boolean = false
+    var expoeted: String = ""
 }

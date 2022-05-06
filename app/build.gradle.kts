@@ -86,6 +86,9 @@ android {
             path = file("CMakeLists.txt")
         }
     }
+    sourceSets {
+        getByName("main")
+    }
 }
 
 kapt {
@@ -178,7 +181,7 @@ dependencies {
         because("It was test!!!")
     }
 
-    implementation("com.zpw.library1:library1:1.0")
+    implementation("com.zpw.library1:library1:2.0")
     implementation("com.zpw.library2:library2:4.0")
 }
 

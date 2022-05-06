@@ -74,6 +74,10 @@ dependencies {
     implementation("org.ow2.asm:asm-util:9.1")
 
     implementation("com.google.code.gson:gson:2.9.0")
+
+    implementation("com.google.guava:guava:31.0.1-jre") {
+        because("Graphs")
+    }
 }
 
 tasks.jar {
@@ -110,10 +114,6 @@ gradlePlugin {
 //    val includeBuildPlugin by plugins.creating {
 //        id = "com.zpw.includegit"
 //        implementationClass = "com.zpw.myplayground.gitinclude.MyIncludeGitPlugin"
-//    }
-//    val quadrantPlugin by plugins.creating {
-//        id = "com.zpw.myplugin"
-//        implementationClass = "com.zpw.myplayground.QuadrantPlugin"
 //    }
 //    val dependencyPlugin by plugins.creating {
 //        id = "com.zpw.myplugin"
@@ -164,9 +164,6 @@ afterEvaluate {
         plugins {
 //            named("includeBuildPlugin") {
 //                displayName = "Gradle Include Git repositories plugin"
-//            }
-//            named("quadrantPlugin") {
-//                displayName = "Gradle quadrant plugin"
 //            }
 //            named("dependencyPlugin") {
 //                displayName = "Gradle dependencyPlugin plugin"

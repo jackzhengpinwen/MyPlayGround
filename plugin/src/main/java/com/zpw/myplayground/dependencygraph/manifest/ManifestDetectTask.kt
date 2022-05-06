@@ -29,6 +29,9 @@ abstract class ManifestDetectTask @Inject constructor(
             logger.log("manifestInputFiles is ${it}")
         }
 
+        // 打包过程中需要的manifest配置
+        ManifestVisitor.generateReport(project, "debugCompileClasspath")
+
         manifestOutputFiles.files.forEach {
             logger.log("manifestOutputFiles is ${it}")
         }

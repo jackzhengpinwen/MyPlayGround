@@ -33,9 +33,14 @@ android {
     kotlinOptions {
         jvmTarget = "1.8"
     }
+
+    sourceSets {
+        getByName("main").jniLibs.srcDirs("libs")
+    }
 }
 
 dependencies {
+    implementation(files("libs/libndklibrary1.so"))
     api("androidx.appcompat:appcompat:1.4.1")
     implementation("androidx.constraintlayout:constraintlayout:2.1.0")
     implementation("com.zpw.library2:library2:1.0")
@@ -70,7 +75,7 @@ publishing {
         register<MavenPublication>("release") {
             groupId = "com.zpw.library1"
             artifactId = "library1"
-            version = "1.0"
+            version = "2.0"
 
             afterEvaluate {
                 from(components["release"])
