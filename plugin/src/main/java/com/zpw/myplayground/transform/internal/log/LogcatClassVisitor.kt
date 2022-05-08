@@ -18,7 +18,7 @@ private const val LOG = "${INSTRUMENT}Logcat"
 //private val LOG_METHODS = setOf("v", "d", "i", "w", "e", "wtf", "println")
 private val LOG_METHODS = setOf("d")
 
-class LogcatClassNode(private val nextVisitor: ClassVisitor) : ClassNode(Opcodes.ASM7) {
+class LogcatClassVisitor(private val nextVisitor: ClassVisitor) : ClassNode(Opcodes.ASM7) {
     override fun visitEnd() {
         super.visitEnd()
 //        logger.log("name is ${name}")

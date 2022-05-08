@@ -19,7 +19,7 @@
         android:usesCleartextTraffic="true">
 
         <activity
-            android:name=".drawer.NavigationDrawerActivity"
+            android:name=".sharememory.ShareMemoryActivity"
             android:theme="@style/Theme.MyPlayGround.NoActionBar"
             android:exported="true">
             <intent-filter>
@@ -38,7 +38,14 @@
         <activity android:name=".robolectric.RobolectricAActivity"/>
         <activity android:name=".mvvm.MVVMActivity"/>
         <service android:name=".foregroundservice.SampleForegroundService"/>
-
+        <service android:name=".sharememory.AshmemService"
+            android:enabled="true"
+            android:exported="false"
+            android:process=":sharememory">
+            <intent-filter>
+                <action android:name="com.zpw.myplayground.sharememory.AshmemService"/>
+            </intent-filter>
+        </service>
     </application>
 
 </manifest>

@@ -49,3 +49,4 @@ include(":library2")
 //        branch.set("master")
 //    }
 //}
+include(":annotation")

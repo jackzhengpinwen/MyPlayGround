@@ -6,21 +6,21 @@ public class ExampleUnitTest {
 
     @Test
     public void test() {
-        String s = "bbbcccdddaaa";
-        int[] widths = new int[] {4,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10};
-        int[] ans = numberOfLines(widths, s);
-        System.out.println(ans[0]);
-        System.out.println(ans[1]);
+        findDuplicates(new int[]{4,3,2,7,8,2,3,1});
     }
 
-    public int[] numberOfLines(int[] widths, String s) {
-        int count = 0;
-        for(int i = 0; i < s.length(); i++) {
-            count += widths[s.charAt(i) - 'a'];
-            System.out.println(count);
+    public int[] findDuplicates(int[] nums) {
+        for (int i = 0; i < nums.length; i++) {
+            while (nums[i] != nums[nums[i] - 1]) {
+                swap(nums, i, nums[i] - 1);
+            }
         }
-        int op = count % 100;
-        int row = count / 100 + (op > 0 ? 1 : 0);
-        return new int[] {row, op};
+        return nums;
+    }
+
+    public void swap(int[] nums, int index1, int index2) {
+        int temp = nums[index1];
+        nums[index1] = nums[index2];
+        nums[index2] = temp;
     }
 }

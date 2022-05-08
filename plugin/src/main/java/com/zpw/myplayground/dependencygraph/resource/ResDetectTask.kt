@@ -36,20 +36,7 @@ abstract class ResDetectTask @Inject constructor(
         compileResourceArtifacts.artifacts.forEach {
             logger.log("resourceArtifacts is ${it.file.absolutePath?:""}")
             val name = it.file.absolutePath?:""
-            if(name.contains("library1")) {
-                val dir = File(name)
-                val queue = ArrayDeque<File>()
-                queue.addAll(dir.listFiles())
-                while (queue.isNotEmpty()) {
-                    val file = queue.removeFirst()
-                    if (file.isDirectory) {
-                        queue.addAll(file.listFiles())
-                    } else {
-                        logger.log("file name: ${file.name} \n" +
-                            "${file.readText()}")
-                    }
-                }
-            }
+
         }
 
         resOutputFiles.files.forEach {

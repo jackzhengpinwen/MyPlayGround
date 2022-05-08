@@ -9,7 +9,7 @@ plugins {
     id("dagger.hilt.android.plugin")
     id("com.google.protobuf") version "0.8.18"
 //    id("jacoco")
-//    id("com.zpw.myplugin") version "1.0.0-SNAPSHOT"
+    id("com.zpw.myplugin") version "1.0.0-SNAPSHOT"
 }
 
 //apply("../jacoco.gradle")
@@ -40,9 +40,9 @@ android {
 
     buildTypes {
         getByName("debug") {
-            isDebuggable = true
-            isMinifyEnabled = true
-            isShrinkResources = true
+//            isDebuggable = true
+//            isMinifyEnabled = true
+//            isShrinkResources = true
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
@@ -85,9 +85,6 @@ android {
         cmake {
             path = file("CMakeLists.txt")
         }
-    }
-    sourceSets {
-        getByName("main")
     }
 }
 
@@ -149,7 +146,7 @@ dependencies {
     implementation("io.github.rburgst:okhttp-digest:2.6")
     implementation("com.jakewharton.timber:timber:5.0.1")
 
-    // workmanager
+    // workmanager∂r
     implementation("androidx.work:work-runtime-ktx:2.7.1")
 
     // glide

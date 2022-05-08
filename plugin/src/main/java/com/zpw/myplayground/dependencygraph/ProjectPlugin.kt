@@ -45,7 +45,6 @@ internal class ProjectPlugin(private val project: Project) {
                     logger.log("variant is ${this.name}")
                     if (this.name == "debug") {
                         val source = sourceSets
-
                         // 解析系统产生的最终proguard配置
                         val minifyTask = tasks.getByName("minify${this.name.capitalize()}WithR8")
                         val proguardDetectTask = tasks.register<ProguardDetectTask>("proguardDetectTask") {

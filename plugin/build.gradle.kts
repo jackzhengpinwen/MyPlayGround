@@ -127,9 +127,17 @@ gradlePlugin {
 //        id = "com.zpw.myplugin"
 //        implementationClass = "com.zpw.myplayground.transform.MyTransformPlugin"
 //    }
-    val dependencyGraphPlugin by plugins.creating {
+//    val dependencyGraphPlugin by plugins.creating {
+//        id = "com.zpw.myplugin"
+//        implementationClass = "com.zpw.myplayground.dependencygraph.DependencyGraphGeneratorPlugin"
+//    }
+//    val doubleClickCheckPlugin by plugins.creating {
+//        id = "com.zpw.myplugin"
+//        implementationClass = "com.zpw.myplayground.doubleclickcheck.DoubleClickPlugin"
+//    }
+    val bigImageCheckPlugin by plugins.creating {
         id = "com.zpw.myplugin"
-        implementationClass = "com.zpw.myplayground.dependencygraph.DependencyGraphGeneratorPlugin"
+        implementationClass = "com.zpw.myplayground.bigimage.BigImageCheckPlugin"
     }
 }
 
@@ -174,8 +182,14 @@ afterEvaluate {
 //            named("transformPlugin") {
 //                displayName = "Gradle condependencyPlugin plugin"
 //            }
-            named("dependencyGraphPlugin") {
-                displayName = "Gradle dependencyGraphPlugin plugin"
+//            named("dependencyGraphPlugin") {
+//                displayName = "Gradle dependencyGraphPlugin plugin"
+//            }
+//            named("doubleClickCheckPlugin") {
+//                displayName = "Gradle doubleClickCheckPlugin plugin"
+//            }
+            named("bigImageCheckPlugin") {
+                displayName = "Gradle bigImageCheckPlugin plugin"
             }
         }
         mavenCoordinates {
