@@ -19,7 +19,7 @@
         android:usesCleartextTraffic="true">
 
         <activity
-            android:name=".sharememory.ShareMemoryActivity"
+            android:name=".sharememory.native.NativeShareMemoryActivity"
             android:theme="@style/Theme.MyPlayGround.NoActionBar"
             android:exported="true">
             <intent-filter>
@@ -44,6 +44,14 @@
             android:process=":sharememory">
             <intent-filter>
                 <action android:name="com.zpw.myplayground.sharememory.AshmemService"/>
+            </intent-filter>
+        </service>
+        <service android:name=".sharememory.native.NativeAshmemService"
+            android:enabled="true"
+            android:exported="false"
+            android:process=":nativesharememory">
+            <intent-filter>
+                <action android:name="com.zpw.myplayground.sharememory.native.NativeAshmemService"/>
             </intent-filter>
         </service>
     </application>
