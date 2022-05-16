@@ -61,7 +61,8 @@ open class CoroutineActivity : AppCompatActivity(), CoroutineScope by MainScope(
 
 //        flow1()
 //        flow2()
-        flowDemo()
+//        flowDemo()
+        flowLifeCycleDemo()
         Log.d(TAG, "onCreate: end!!")
     }
 

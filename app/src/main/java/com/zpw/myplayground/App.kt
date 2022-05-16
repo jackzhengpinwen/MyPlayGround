@@ -1,6 +1,8 @@
 package com.zpw.myplayground
 
 import android.app.Application
+import com.zpw.myplayground.webview.base.WebViewInitTask
+import com.zpw.myplayground.webview.utils.ContextHolder
 import dagger.hilt.android.HiltAndroidApp
 import timber.log.Timber
 
@@ -13,5 +15,7 @@ class App: Application() {
         if (BuildConfig.DEBUG) {
             Timber.plant(Timber.DebugTree())
         }
+        ContextHolder.application = this
+        WebViewInitTask.init(this)
     }
 }

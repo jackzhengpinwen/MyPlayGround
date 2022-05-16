@@ -91,8 +91,79 @@ fun threeSum(nums: IntArray): List<List<Int>> {
     return ans
 }
 
+/**
+ * 下一个排列
+ *
+ * 整数数组的 下一个排列 是指其整数的下一个字典序更大的排列。更正式地，如果数组的所有排列根据其字典顺序从小到大排列在一个容器中，
+ * 那么数组的 下一个排列 就是在这个有序容器中排在它后面的那个排列。如果不存在下一个更大的排列，
+ * 那么这个数组必须重排为字典序最小的排列（即，其元素按升序排列）。
+ *
+ * 必须 原地 修改，只允许使用额外常数空间。
+ *
+ * 方法：两遍扫描
+ */
+fun nextPermutation(nums: IntArray) {
+    // 第一遍扫描从尾部开始找出第一个递增序列的元素下标
+    var i = nums.size - 2
+    while (i >= 0 && nums[i] >= nums[i + 1]) i--
+    // 第二遍扫描从尾部开始找出小于第一遍扫描的下标的元素
+    if (i >= 0) {
+        var j = nums.size - 1
+        while (j >= 0 && nums[j] <= nums[i]) j--
+        swap(nums, i, j)
+    }
+    // 因为第一遍扫描之后，i + 1 之后的元素都是逆序排列，所以需要反转变成正序排列，才是最小的下一个排列
+    reverse(nums, i + 1)
+}
+
+/**
+ * 搜索旋转排序数组
+ *
+ * 整数数组 nums 按升序排列，数组中的值 互不相同 。在传递给函数之前，nums 在预先未知的某个下标 k（0 <= k < nums.length）上进行了 旋转，
+ * 使数组变为 [nums[k], nums[k+1], ..., nums[n-1], nums[0], nums[1], ..., nums[k-1]]（下标 从 0 开始 计数）。
+ * 例如， [0,1,2,4,5,6,7] 在下标 3 处经旋转后可能变为[4,5,6,7,0,1,2] 。给你 旋转后 的数组 nums 和一个整数 target ，
+ * 如果 nums 中存在这个目标值 target ，则返回它的下标，否则返回-1。
+ *
+ * 方法：这道题很奇葩，直接在给定数组中遍历检索即可，但是还可以优化一下，就是利用已排序的这个特点，利用部分二分法搜索进行检索。
+ */
+fun search(nums: IntArray, target: Int): Int {
+    var n = nums.size
+    if (n == 0) return -1
+    if (n == 1) return if (nums[0] == target) 0 else -1
+    var left = 0
+    var right = n - 1
+    while (left <= right) {
+        var mid = (left + right) / 2
+        if (nums[mid] == target) return mid
+        if(nums[0] <= nums[mid]) {
+            if (nums[0] <= target && target <= nums[mid]) {
+                right = mid - 1
+            } else {
+                left = mid + 1
+            }
+        } else {
+            if (nums[mid] < target && target <= nums[n - 1]) {
+                left = mid + 1
+            } else {
+                right = mid - 1
+            }
+        }
+    }
+    return -1
+}
+
 fun swap(nums: IntArray, i: Int, j: Int) {
     val tmp = nums[i]
     nums[i] = nums[j]
     nums[j] = tmp
+}
+
+fun reverse(nums: IntArray, index: Int) {
+    var left = index
+    var right = nums.size - 1
+    while (left < right) {
+        swap(nums, left, right)
+        left++
+        right--
+    }
 }

@@ -12,6 +12,9 @@ buildscript {
         classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:1.6.21")
         classpath("org.jacoco:org.jacoco.core:0.8.7")
         classpath("com.google.dagger:hilt-android-gradle-plugin:2.41")
+        val kotlinVersion = "1.6.10"
+        classpath(kotlin("gradle-plugin", version = kotlinVersion))
+        classpath(kotlin("serialization", version = kotlinVersion))
     }
 }
 

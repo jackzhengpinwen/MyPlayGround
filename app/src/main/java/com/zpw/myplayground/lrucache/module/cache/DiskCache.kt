@@ -1,0 +1,58 @@
+package com.zpw.myplayground.lrucache.module.cache
+
+import com.jakewharton.disklrucache.DiskLruCache
+import kotlinx.serialization.builtins.ByteArraySerializer
+import kotlinx.serialization.json.Json
+import java.io.File
+import java.nio.charset.Charset
+
+class DiskCache private constructor(private val cache: DiskLruCache): Persistence<ByteArray> {
+    companion object {
+        const val JOURNAL_FILE = "journal"
+
+        fun open(cacheDir: String, uniqueName: String, capacity: Long): DiskCache {
+            val dir = File(cacheDir)
+            val disk = DiskLruCache.open(dir.resolve(uniqueName), 1, 1, capacity)
+            return DiskCache(disk)
+        }
+    }
+
+    private val json = Json
+
+    override fun put(safeKey: String, entry: Entry<ByteArray>) {
+        cache.edit(safeKey).apply {
+            newOutputStream(0).use {
+                val serialized = json.encodeToString(Entry.serializer(ByteArraySerializer()), entry)
+                it.write(serialized.toByteArray())
+            }
+        }
+    }
+
+    override fun remove(safeKey: String): Boolean = cache.remove(safeKey)
+
+    override fun removeAll() = allKeys().forEach { cache.remove(it) }
+
+    override fun allKeys(): Set<String> = allSafeKeys()
+        .mapNotNull { getEntry(it)?.key }
+        .toSet()
+
+    private fun allSafeKeys() = synchronized(this) {
+        cache.directory.listFiles()?.filter { it.isFile && it.name != JOURNAL_FILE }
+            ?.map { it.name.substringBefore(".") } ?: emptyList()
+    }
+
+    override fun size(): Long = cache.size()
+
+    override fun get(safeKey: String): ByteArray? = getEntry(safeKey)?.data
+
+    override fun getTimestamp(safeKey: String): Long? = getEntry(safeKey)?.timeStamp
+
+    private fun getEntry(safeKey: String): Entry<ByteArray>? {
+        val bytes = cache.get(safeKey)?.use { snapshot ->
+            snapshot.getInputStream(0).use { it.readBytes() }
+        }
+        return bytes?.toString(Charset.defaultCharset())?.let {
+            json.decodeFromString(Entry.serializer(ByteArraySerializer()), it)
+        }
+    }
+}

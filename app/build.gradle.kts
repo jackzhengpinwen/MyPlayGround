@@ -5,6 +5,7 @@ import com.google.protobuf.gradle.generateProtoTasks
 plugins {
     id("com.android.application")
     kotlin("android")
+    kotlin("plugin.serialization")
     kotlin("kapt")
     id("dagger.hilt.android.plugin")
     id("com.google.protobuf") version "0.8.18"
@@ -177,6 +178,21 @@ dependencies {
     compileOnly("com.android.tools.build:gradle:7.2.0-beta04") {
         because("It was test!!!")
     }
+
+    // disklrucache
+    implementation("com.jakewharton:disklrucache:2.0.2")
+
+    // kotlinxSerialization
+    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.3.2")
+
+    // webview
+    implementation("com.tencent.tbs:tbssdk:44181")
+    debugImplementation("com.github.chuckerteam.chucker:library:3.5.2")
+    releaseImplementation("com.github.chuckerteam.chucker:library-no-op:3.5.2")
+
+    // rxjava
+    implementation("io.reactivex.rxjava3:rxjava:3.1.4")
+    implementation("io.reactivex.rxjava3:rxandroid:3.0.0")
 
     implementation("com.zpw.library1:library1:2.0")
     implementation("com.zpw.library2:library2:4.0")
