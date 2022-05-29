@@ -78,6 +78,9 @@ dependencies {
     implementation("com.google.guava:guava:31.0.1-jre") {
         because("Graphs")
     }
+
+    implementation("org.jooq:joor-java-8:0.9.13")
+    implementation("org.javassist:javassist:3.28.0-GA")
 }
 
 tasks.jar {
@@ -135,9 +138,21 @@ gradlePlugin {
 //        id = "com.zpw.myplugin"
 //        implementationClass = "com.zpw.myplayground.doubleclickcheck.DoubleClickPlugin"
 //    }
-    val bigImageCheckPlugin by plugins.creating {
+//    val bigImageCheckPlugin by plugins.creating {
+//        id = "com.zpw.myplugin"
+//        implementationClass = "com.zpw.myplayground.bigimage.BigImageCheckPlugin"
+//    }
+//    val fastBuildPlugin by plugins.creating {
+//        id = "com.zpw.myplugin"
+//        implementationClass = "com.zpw.myplayground.fastbuild.ModuleArchivePlugin"
+//    }
+//    val focusPlugin by plugins.creating {
+//        id = "com.zpw.myplugin"
+//        implementationClass = "com.zpw.myplayground.focus.MyFocusPlugin"
+//    }
+    val injKitPlugin by plugins.creating {
         id = "com.zpw.myplugin"
-        implementationClass = "com.zpw.myplayground.bigimage.BigImageCheckPlugin"
+        implementationClass = "com.zpw.myplayground.injkit.InjKitPlugin"
     }
 }
 
@@ -188,8 +203,17 @@ afterEvaluate {
 //            named("doubleClickCheckPlugin") {
 //                displayName = "Gradle doubleClickCheckPlugin plugin"
 //            }
-            named("bigImageCheckPlugin") {
-                displayName = "Gradle bigImageCheckPlugin plugin"
+//            named("bigImageCheckPlugin") {
+//                displayName = "Gradle bigImageCheckPlugin plugin"
+//            }
+//            named("fastBuildPlugin") {
+//                displayName = "Gradle fastBuildPlugin plugin"
+//            }
+//            named("focusPlugin") {
+//                displayName = "Gradle focusPlugin plugin"
+//            }
+            named("injKitPlugin") {
+                displayName = "Gradle injKitPlugin plugin"
             }
         }
         mavenCoordinates {

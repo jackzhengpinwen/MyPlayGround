@@ -1,14 +1,16 @@
-import org.gradle.internal.impldep.org.eclipse.jgit.lib.ObjectChecker.tree
-
 buildscript {
     repositories {
         mavenLocal()
         google()
         mavenCentral()
         maven(url = "https://jitpack.io")
+        maven(url = "https://plugins.gradle.org/m2/")
+        // Add these two maven entries.
+        maven { setUrl("./flutter") }
+        maven { setUrl("https://storage.googleapis.com/download.flutter.io") }
     }
     dependencies {
-        classpath("com.android.tools.build:gradle:7.2.0-beta04")
+        classpath("com.android.tools.build:gradle:7.2.0")
         classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:1.6.21")
         classpath("org.jacoco:org.jacoco.core:0.8.7")
         classpath("com.google.dagger:hilt-android-gradle-plugin:2.41")

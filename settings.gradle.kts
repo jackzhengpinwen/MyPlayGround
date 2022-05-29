@@ -13,11 +13,14 @@ pluginManagement {
 }
 
 dependencyResolutionManagement {
-    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
+    repositoriesMode.set(RepositoriesMode.PREFER_SETTINGS)
     repositories {
         mavenLocal()
         google()
         mavenCentral()
+        // Add these two maven entries.
+        maven { setUrl("./flutter") }
+        maven { setUrl("https://storage.googleapis.com/download.flutter.io") }
     }
 }
 
@@ -25,12 +28,21 @@ enableFeaturePreview("VERSION_CATALOGS")
 
 rootProject.name = "MyPlayGround"
 include(":app")
-//include(":dependency-analysis-android-gradle-plugin")
-include(":library1")
-include(":library2")
+//include(":library1")
+//include(":library2")
 //include(":library3")
+include(":annotation")
 //include(":plugin")
 //include(":plugintest")
+
+plugins {
+    id("com.dropbox.focus") version "0.4.0"
+}
+
+//focus {
+//    allSettingsFileName = "settings-all.gradle"
+//    focusFileName = "settings-focus.gradle"
+//}
 
 //plugins {
 //    id("me.champeau.includegit") version "0.1.5"
@@ -50,4 +62,3 @@ include(":library2")
 //        branch.set("master")
 //    }
 //}
-include(":annotation")

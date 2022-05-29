@@ -6,4 +6,8 @@ class Test {
             println(it)
         }
     }
+
+    fun library3() {
+        println("i am test3")
+    }
 }

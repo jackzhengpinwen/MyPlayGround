@@ -77,6 +77,7 @@ android {
     }
     buildFeatures {
         dataBinding = true
+        viewBinding = true
     }
     packagingOptions {
         resources.pickFirsts.add("META-INF/AL2.0")
@@ -95,7 +96,6 @@ kapt {
 
 dependencies {
     implementation(files("libs/sdk.jar"))
-//    implementation(project(mapOf("path" to ":library1")))
     implementation(libs.corektx)
     implementation(Deps.appCompat)
     implementation("androidx.activity:activity-ktx:1.4.0")
@@ -194,8 +194,16 @@ dependencies {
     implementation("io.reactivex.rxjava3:rxjava:3.1.4")
     implementation("io.reactivex.rxjava3:rxandroid:3.0.0")
 
-    implementation("com.zpw.library1:library1:2.0")
-    implementation("com.zpw.library2:library2:4.0")
+    // flutter
+    debugImplementation("com.example.flutter_nps:flutter_debug:1.0")
+//    profileImplementation("com.example.flutter_nps:flutter_profile:1.0")
+    releaseImplementation("com.example.flutter_nps:flutter_release:1.0")
+
+//    implementation("com.zpw.library1:library1:2.0")
+//    implementation("com.zpw.library2:library2:4.0")
+    implementation(project(":library3"))
+//    implementation(project(mapOf("path" to ":library2")))
+//    implementation(project(mapOf("path" to ":library1")))
 }
 
 protobuf {
@@ -213,6 +221,32 @@ protobuf {
         }
     }
 }
+
+//插件配置
+//moduleArchive {
+//    // 可选参数.是否打印log 默认为false
+//    logEnable = true
+//    // 可选参数.是否启用插件 默认为false
+//    pluginEnable = true
+//    //必选参数.存储插件临时配置目录
+//    storeLibsDir = project.rootProject.file("libs")
+//    // 可选参数.如果配置了那么只会由该任务触发执行,不配置的话,默认会检测是否包含apply的工程名字
+//    detectLauncherRegex = ":app:assembleDebug"
+//    // 下面配置哪些模块可以被编译成aar缓存
+//    subModuleConfig {
+//        // image-picker是一个module工程，具体视你项目而定,配置后会在编译时替换为aar依赖,并且会在您修改这个模块后会自动进行构建
+//        register(":library3") {
+//            // 可选参数.是否使用debug版本
+//            useDebug = true
+//            // 可选参数.是否启用这个模块配置
+//            enable = true
+//            // 可选参数. 缓存的aar命中,不选的话默认命名格式为: _${module name}.aar
+//            aarName = "library3-debug.aar"
+//            // 可选参数.构建变体 如没有可不写
+//            flavorName = "zpw"
+//        }
+//    }
+//}
 
 afterEvaluate {
     logger.log(org.gradle.api.logging.LogLevel.DEBUG, "zpw$$ app afterEvaluate")
