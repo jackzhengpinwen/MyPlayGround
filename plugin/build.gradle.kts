@@ -67,6 +67,9 @@ dependencies {
     compileOnly("com.android.tools.build:gradle:7.2.0-beta04") {
         because("Auto-wiring into Android projects")
     }
+    compileOnly("org.apache.commons:commons-lang3:3.4") {
+        because("File create")
+    }
     implementation("org.eclipse.jgit:org.eclipse.jgit:5.13.0.202109080827-r")
     implementation("org.eclipse.jgit:org.eclipse.jgit.ssh.jsch:5.13.0.202109080827-r")
 //    implementation("org.ow2.asm:asm:9.2")

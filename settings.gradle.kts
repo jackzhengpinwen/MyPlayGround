@@ -28,9 +28,9 @@ enableFeaturePreview("VERSION_CATALOGS")
 
 rootProject.name = "MyPlayGround"
 include(":app")
-//include(":library1")
-//include(":library2")
-//include(":library3")
+include(":library1")
+include(":library2")
+include(":library3")
 include(":annotation")
 //include(":plugin")
 //include(":plugintest")

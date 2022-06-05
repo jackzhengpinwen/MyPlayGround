@@ -202,8 +202,8 @@ dependencies {
 //    implementation("com.zpw.library1:library1:2.0")
 //    implementation("com.zpw.library2:library2:4.0")
     implementation(project(":library3"))
-//    implementation(project(mapOf("path" to ":library2")))
-//    implementation(project(mapOf("path" to ":library1")))
+//    implementation(project(":library2"))
+//    implementation(project(":library1"))
 }
 
 protobuf {

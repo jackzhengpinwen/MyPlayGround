@@ -26,3 +26,11 @@ internal fun Logger.log(msg: String) {
 }
 
 internal inline fun <reified T> getLogger(): Logger = Logging.getLogger(T::class.java)
+
+fun log(msg: String) {
+    when (System.getProperty(LOGGING, LOG_LEVEL_DEBUG)) {
+        LOG_LEVEL_DEBUG -> println("zpw$$ $msg")
+        LOG_LEVEL_WARN -> println("zpw$$ $msg")
+        LOG_LEVEL_QUIET -> println("zpw$$ $msg")
+    }
+}
