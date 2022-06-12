@@ -28,16 +28,18 @@ enableFeaturePreview("VERSION_CATALOGS")
 
 rootProject.name = "MyPlayGround"
 include(":app")
-include(":library1")
-include(":library2")
-include(":library3")
+//include(":library1")
+//include(":library2")
+//include(":library3")
 include(":annotation")
+include(":compiler")
+include(":hilt")
 //include(":plugin")
 //include(":plugintest")
 
-plugins {
-    id("com.dropbox.focus") version "0.4.0"
-}
+//plugins {
+//    id("com.dropbox.focus") version "0.4.0"
+//}
 
 //focus {
 //    allSettingsFileName = "settings-all.gradle"

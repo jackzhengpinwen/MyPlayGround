@@ -33,6 +33,10 @@ class StringValuesWriter {
 
     File stringValuesFile = new File(flavorPath, "res/values/string_layouts.xml");
     LoggingKt.log("write flavorPath is " + stringValuesFile.getAbsolutePath());
+    for(Map.Entry entry: stringValues.getValues().entrySet()) {
+        LoggingKt.log("key is " + entry.getKey());
+        LoggingKt.log("value is " + entry.getValue());
+    }
     xmlFileWriter.write(document, stringValuesFile);
   }
 

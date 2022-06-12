@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
@@ -27,7 +27,6 @@
             android:layout_gravity="center_horizontal"
             android:layout_marginStart="16dp"
             android:layout_marginTop="10dp"
-            android:text="Category"
             android:textColor="#9FA2AF"
             android:textSize="18sp"
             android:textStyle="bold"
@@ -41,7 +40,6 @@
             android:layout_gravity="center_horizontal"
             android:layout_marginStart="16dp"
             android:layout_marginTop="5dp"
-            android:text="Lorem ipsum dolor sit amet…"
             android:textColor="@color/black"
             android:textSize="18sp"
             android:textStyle="bold"
@@ -60,5 +58,7 @@
             android:textSize="16sp"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/content" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
+
 </androidx.cardview.widget.CardView>

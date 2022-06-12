@@ -10,7 +10,7 @@ plugins {
     id("dagger.hilt.android.plugin")
     id("com.google.protobuf") version "0.8.18"
 //    id("jacoco")
-    id("com.zpw.myplugin") version "1.0.0-SNAPSHOT"
+//    id("com.zpw.myplugin") version "1.0.0-SNAPSHOT"
 }
 
 //apply("../jacoco.gradle")
@@ -194,6 +194,10 @@ dependencies {
     implementation("io.reactivex.rxjava3:rxjava:3.1.4")
     implementation("io.reactivex.rxjava3:rxandroid:3.0.0")
 
+    // apt
+    kapt(project(":hilt"))
+    implementation(project(":annotation"))
+
     // flutter
     debugImplementation("com.example.flutter_nps:flutter_debug:1.0")
 //    profileImplementation("com.example.flutter_nps:flutter_profile:1.0")
@@ -201,7 +205,7 @@ dependencies {
 
 //    implementation("com.zpw.library1:library1:2.0")
 //    implementation("com.zpw.library2:library2:4.0")
-    implementation(project(":library3"))
+//    implementation(project(":library3"))
 //    implementation(project(":library2"))
 //    implementation(project(":library1"))
 }

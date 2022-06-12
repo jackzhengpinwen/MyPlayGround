@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<!--	This file is auto-generated DO NOT insert new strings here manually!!!
-		Just insert the string value in the respective widget text within the layout file, this value will then be automatically added to this file with the correct reference	
---><resources>
-    <string name="activity_library_result_text">Hello Library!</string>
-</resources>

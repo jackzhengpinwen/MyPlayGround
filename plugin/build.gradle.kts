@@ -153,10 +153,10 @@ gradlePlugin {
 //        id = "com.zpw.myplugin"
 //        implementationClass = "com.zpw.myplayground.focus.MyFocusPlugin"
 //    }
-    val injKitPlugin by plugins.creating {
-        id = "com.zpw.myplugin"
-        implementationClass = "com.zpw.myplayground.injkit.InjKitPlugin"
-    }
+//    val injKitPlugin by plugins.creating {
+//        id = "com.zpw.myplugin"
+//        implementationClass = "com.zpw.myplayground.injkit.InjKitPlugin"
+//    }
 }
 
 publishing {
@@ -215,9 +215,9 @@ afterEvaluate {
 //            named("focusPlugin") {
 //                displayName = "Gradle focusPlugin plugin"
 //            }
-            named("injKitPlugin") {
-                displayName = "Gradle injKitPlugin plugin"
-            }
+//            named("injKitPlugin") {
+//                displayName = "Gradle injKitPlugin plugin"
+//            }
         }
         mavenCoordinates {
             groupId = "com.zpw.myplugin"
