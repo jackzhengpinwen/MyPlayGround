@@ -24,15 +24,27 @@
         android:usesCleartextTraffic="true">
 
         <activity
-            android:name=".flutter.AddFlutterActivity"
+            android:name=".changeappicon.ChangeAppIconActivity"
             android:theme="@style/Theme.MyPlayGround.NoActionBar"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity-alias
+            android:name="appicon"
+            android:icon="@mipmap/ic_launcher_round"
+            android:enabled="false"
+            android:exported="true"
+            android:targetActivity=".changeappicon.ChangeAppIconActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+                <action android:name="android.intent.action.VIEW"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+            </intent-filter>
+        </activity-alias>
         <activity
             android:name="io.flutter.embedding.android.FlutterActivity"
             android:theme="@style/Theme.Translucent.newsfeed_android"
@@ -48,8 +60,6 @@
         <activity android:name=".koin.KoinActivityB"/>
         <activity android:name=".robolectric.RobolectricAActivity"/>
         <activity android:name=".mvvm.MVVMActivity"/>
-
-
         <service android:name=".foregroundservice.SampleForegroundService"/>
         <service android:name=".sharememory.AshmemService"
             android:enabled="true"

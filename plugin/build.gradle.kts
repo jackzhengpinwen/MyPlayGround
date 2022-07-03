@@ -129,10 +129,10 @@ gradlePlugin {
 //        id = "com.zpw.myplugin"
 //        implementationClass = "com.zpw.myplayground.condependencies.MyConDependencyPlugin"
 //    }
-//    val transformPlugin by plugins.creating {
-//        id = "com.zpw.myplugin"
-//        implementationClass = "com.zpw.myplayground.transform.MyTransformPlugin"
-//    }
+    val transformPlugin by plugins.creating {
+        id = "com.zpw.myplugin"
+        implementationClass = "com.zpw.myplayground.transform.MyTransformPlugin"
+    }
 //    val dependencyGraphPlugin by plugins.creating {
 //        id = "com.zpw.myplugin"
 //        implementationClass = "com.zpw.myplayground.dependencygraph.DependencyGraphGeneratorPlugin"
@@ -197,9 +197,9 @@ afterEvaluate {
 //            named("condependencyPlugin") {
 //                displayName = "Gradle condependencyPlugin plugin"
 //            }
-//            named("transformPlugin") {
-//                displayName = "Gradle condependencyPlugin plugin"
-//            }
+            named("transformPlugin") {
+                displayName = "Gradle condependencyPlugin plugin"
+            }
 //            named("dependencyGraphPlugin") {
 //                displayName = "Gradle dependencyGraphPlugin plugin"
 //            }

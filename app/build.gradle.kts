@@ -10,7 +10,7 @@ plugins {
     id("dagger.hilt.android.plugin")
     id("com.google.protobuf") version "0.8.18"
 //    id("jacoco")
-//    id("com.zpw.myplugin") version "1.0.0-SNAPSHOT"
+    id("com.zpw.myplugin") version "1.0.0-SNAPSHOT"
 }
 
 //apply("../jacoco.gradle")
@@ -98,6 +98,9 @@ dependencies {
     implementation(files("libs/sdk.jar"))
     implementation(libs.corektx)
     implementation(Deps.appCompat)
+    implementation(kotlin("bom"))
+    implementation(kotlin("stdlib"))
+    implementation(kotlin("reflect"))
     implementation("androidx.activity:activity-ktx:1.4.0")
     implementation("com.google.android.material:material:1.5.0")
     implementation("androidx.lifecycle:lifecycle-extensions:2.2.0")
@@ -202,6 +205,12 @@ dependencies {
     debugImplementation("com.example.flutter_nps:flutter_debug:1.0")
 //    profileImplementation("com.example.flutter_nps:flutter_profile:1.0")
     releaseImplementation("com.example.flutter_nps:flutter_release:1.0")
+
+    // asm
+    implementation("org.ow2.asm:asm:9.1")
+    implementation("org.ow2.asm:asm-tree:9.1")
+    implementation("org.ow2.asm:asm-util:9.1")
+    implementation("org.ow2.asm:asm-commons:9.1")
 
 //    implementation("com.zpw.library1:library1:2.0")
 //    implementation("com.zpw.library2:library2:4.0")
