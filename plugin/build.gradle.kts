@@ -15,7 +15,7 @@ version = "1.0.0-SNAPSHOT"
 
 java {
     toolchain {
-        languageVersion.set(JavaLanguageVersion.of(8))
+        languageVersion.set(JavaLanguageVersion.of(11))
     }
 }
 
@@ -27,7 +27,7 @@ repositories {
 
 tasks.withType<KotlinCompile>().configureEach {
     kotlinOptions {
-        jvmTarget = "1.8"
+        jvmTarget = "11"
     }
 }
 
@@ -82,6 +82,9 @@ dependencies {
         because("Graphs")
     }
 
+    implementation("io.github.irgaly.xml:original-characters-stax:1.0.1") {
+        because("Unused res delete")
+    }
     implementation("org.jooq:joor-java-8:0.9.13")
     implementation("org.javassist:javassist:3.28.0-GA")
 }
@@ -129,10 +132,10 @@ gradlePlugin {
 //        id = "com.zpw.myplugin"
 //        implementationClass = "com.zpw.myplayground.condependencies.MyConDependencyPlugin"
 //    }
-    val transformPlugin by plugins.creating {
-        id = "com.zpw.myplugin"
-        implementationClass = "com.zpw.myplayground.transform.MyTransformPlugin"
-    }
+//    val transformPlugin by plugins.creating {
+//        id = "com.zpw.myplugin"
+//        implementationClass = "com.zpw.myplayground.transform.MyTransformPlugin"
+//    }
 //    val dependencyGraphPlugin by plugins.creating {
 //        id = "com.zpw.myplugin"
 //        implementationClass = "com.zpw.myplayground.dependencygraph.DependencyGraphGeneratorPlugin"
@@ -157,6 +160,10 @@ gradlePlugin {
 //        id = "com.zpw.myplugin"
 //        implementationClass = "com.zpw.myplayground.injkit.InjKitPlugin"
 //    }
+    val removeunusedresPlugin by plugins.creating {
+        id = "com.zpw.myplugin"
+        implementationClass = "com.zpw.myplayground.removeusedres.RemoveUnusedResourcesPlugin"
+    }
 }
 
 publishing {
@@ -197,9 +204,9 @@ afterEvaluate {
 //            named("condependencyPlugin") {
 //                displayName = "Gradle condependencyPlugin plugin"
 //            }
-            named("transformPlugin") {
-                displayName = "Gradle condependencyPlugin plugin"
-            }
+//            named("transformPlugin") {
+//                displayName = "Gradle condependencyPlugin plugin"
+//            }
 //            named("dependencyGraphPlugin") {
 //                displayName = "Gradle dependencyGraphPlugin plugin"
 //            }
@@ -218,6 +225,9 @@ afterEvaluate {
 //            named("injKitPlugin") {
 //                displayName = "Gradle injKitPlugin plugin"
 //            }
+            named("removeunusedresPlugin") {
+                displayName = "Gradle RemoveUnusedResourcesPlugin plugin"
+            }
         }
         mavenCoordinates {
             groupId = "com.zpw.myplugin"

@@ -75,6 +75,12 @@ android {
     lint {
         abortOnError = false
     }
+
+    lintOptions {
+        checkOnly("UnusedResources")
+        isCheckGeneratedSources = true
+        isCheckDependencies = true
+    }
     buildFeatures {
         dataBinding = true
         viewBinding = true

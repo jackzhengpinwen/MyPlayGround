@@ -8,14 +8,4 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
 
-    <color name="bg_main_normal">#ffffcc</color>
-    <color name="textcolor_main_normal">#ff0000</color>
-    <color name="bg_main_dark">#000000</color>
-    <color name="textcolor_main_dark">#33ffff</color>
-    <color name="bg_second_normal">#0000ff</color>
-    <color name="textcolor_second_normal">#00ff00</color>
-    <color name="bg_second_dark">#ffffff</color>
-    <color name="textcolor_second_dark">#000000</color>
-    <color name="main_textAppearance">#000000</color>
-    <color name="drak_textAppearance">#ffffff</color>
 </resources>
