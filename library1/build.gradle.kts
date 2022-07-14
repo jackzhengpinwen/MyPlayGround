@@ -3,7 +3,7 @@ plugins {
     kotlin("android")
     `maven-publish`
 //    `kotlin-dsl`
-    id("com.zpw.myplugin") version "1.0.0-SNAPSHOT"
+//    id("com.zpw.myplugin") version "1.0.0-SNAPSHOT"
 }
 
 android {

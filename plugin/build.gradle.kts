@@ -1,6 +1,8 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
+    kotlin("jvm") version embeddedKotlinVersion
+    kotlin("kapt") version embeddedKotlinVersion
     `java-gradle-plugin`
     `java-library`
     id("com.gradle.plugin-publish") version "0.16.0"
@@ -160,10 +162,14 @@ gradlePlugin {
 //        id = "com.zpw.myplugin"
 //        implementationClass = "com.zpw.myplayground.injkit.InjKitPlugin"
 //    }
-    val removeunusedresPlugin by plugins.creating {
-        id = "com.zpw.myplugin"
-        implementationClass = "com.zpw.myplayground.removeusedres.RemoveUnusedResourcesPlugin"
-    }
+//    val removeunusedresPlugin by plugins.creating {
+//        id = "com.zpw.myplugin"
+//        implementationClass = "com.zpw.myplayground.removeusedres.RemoveUnusedResourcesPlugin"
+//    }
+//    val buildPropsPlugin by plugins.creating {
+//        id = "com.zpw.myplugin"
+//        implementationClass = "com.zpw.myplayground.buildprops.BuildPropsPlugin"
+//    }
 }
 
 publishing {
@@ -225,9 +231,12 @@ afterEvaluate {
 //            named("injKitPlugin") {
 //                displayName = "Gradle injKitPlugin plugin"
 //            }
-            named("removeunusedresPlugin") {
-                displayName = "Gradle RemoveUnusedResourcesPlugin plugin"
-            }
+//            named("removeunusedresPlugin") {
+//                displayName = "Gradle RemoveUnusedResourcesPlugin plugin"
+//            }
+//            named("buildPropsPlugin") {
+//                displayName = "Gradle BuildPropsPlugin plugin"
+//            }
         }
         mavenCoordinates {
             groupId = "com.zpw.myplugin"
